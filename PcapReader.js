@@ -1,6 +1,43 @@
 const PCAPNGParser = require('pcap-ng-parser');
 const fs = require('fs');
 
+/*
+  #eth[14]
+  dst_mac[6], 0x00
+  src_mac[6], 0x06
+  type[2],  IPv4 (0x0800)
+  
+  #ip[20]
+  vers[1], 0x00 (0x45)
+  service[1], 0x01 (0x00)
+  length[2], 0x02 <-- ip_header(20)+tcp_header(20)+payload
+  id[2], 0x04
+  flags[1], 0x06
+  fragm_offs[1], 0x07
+  ttl[1], 0x08
+  protocol[1], 0x09
+  header_cs[2], 0x0a
+  src_ip[4], 0x0c
+  dst_ip[4], 0x10
+  
+  #udp[8]
+  src_port[2]
+  dst_port[2]
+  length[2]
+  udp_sc[2]
+
+  #tcp[20]
+  src_port[2], 0x00
+  dst_port[2], 0x02
+  seq_nr[4], 0x04
+  ack_nr[4], 0x08
+  vers_flags[2], 0x0c
+  window[2], 0x0e
+  tcp_cs[2], 0x10
+  urgent_ptr[2], 0x12
+  
+  #data
+*/
 const ethHeaderOffset = 0;
 const ethHeaderLength = 14;
 const ipHeaderOffset = ethHeaderOffset+ ethHeaderLength;
@@ -19,7 +56,7 @@ class PcapReader {
       logger: console,
       camip: null,
       cammac: null,
-      camport: null,
+      camport: 34567,
       camprot: 0, //0 - default (TCP)
       ...config
     };
@@ -27,7 +64,7 @@ class PcapReader {
     this.onResponse;
   }
 
-  parse(path, { camip, camport }) { //camip as ArrayBuffer with length 4
+  parse(path, { camip, camport, cammac }) { //camip as ArrayBuffer with length 4
     const error = this.config.logger.error;
     const log = this.config.logger.log;
     const pcapNgParser = new PCAPNGParser();
@@ -43,7 +80,16 @@ class PcapReader {
     resHeader.writeUInt16BE(0x0800, ethHeaderOffset + 0x0c); // type IPv4
     resHeader.writeUInt8(0x45, ipHeaderOffset + 0x00); // version
     resHeader.writeUInt8(protTcp, ipHeaderOffset + 0x09);
-    
+
+    cammac = cammac || this.config.cammac;
+    if (camip) {
+      if (camip.length !== 6) return error('invalid cammac length ' + cammac.length);
+      for (let i = 0; i < camip.length; i++) {
+        reqHeader.writeUInt8(cammac[i], ethHeaderOffset + 0x00); //dst_mac
+        resHeader.writeUInt8(cammac[i], ethHeaderOffset + 0x06); //src_mac
+      }
+    }
+
     camip = camip || this.config.camip;
     if (camip) {
       if (camip.length !== 4) return error('invalid camip length ' + camip.length);
@@ -98,6 +144,14 @@ class PcapReader {
 
     fileStream.pipe(pcapNgParser)
       .on('data', chunk => {
+        /*
+        {
+          interfaceId: 0,
+          timestampHigh: 386162,
+          timestampLow: 445811299,
+          data: <Buffer 00 50 b6 be 7a 27 00 12 41 73 fb 39 08 00 45 00 05 dc fb 39 40 00 40 06 b5 ea c0 a8 01 a4 c0 a8 01 03 00 50 ec 98 d2 28 f2 7c 0f 1f 71 6c 50 10 07 a7 ... 1464 more bytes>
+        }
+        */
         const data = chunk && chunk.data;
         if (data.length < tcpPayloadOffset) return;
         
@@ -107,62 +161,18 @@ class PcapReader {
         else if (this.onResponse && isResponse(data)) {
           this.onResponse(data.subarray(tcpPayloadOffset));
         }
-/*
-{
-  interfaceId: 0,
-  timestampHigh: 386162,
-  timestampLow: 445811299,
-  data: <Buffer 00 50 b6 be 7a 27 00 12 41 73 fb 39 08 00 45 00 05 dc fb 39 40 00 40 06 b5 ea c0 a8 01 a4 c0 a8 01 03 00 50 ec 98 d2 28 f2 7c 0f 1f 71 6c 50 10 07 a7 ... 1464 more bytes>
-  
-  #eth[14]
-  dst_mac[6], 0x00
-  src_mac[6], 0x06
-  type[2],  IPv4 (0x0800)
-  
-  #ip[20]
-  vers[1], 0x00 (0x45)
-  service[1], 0x01 (0x00)
-  length[2], 0x02 <-- ip_header(20)+tcp_header(20)+payload
-  id[2], 0x04
-  flags[1], 0x06
-  fragm_offs[1], 0x07
-  ttl[1], 0x08
-  protocol[1], 0x09
-  header_cs[2], 0x0a
-  src_ip[4], 0x0c
-  dst_ip[4], 0x10
-  
-  #udp[8]
-  src_port[2]
-  dst_port[2]
-  length[2]
-  udp_sc[2]
-
-  #tcp[20]
-  src_port[2], 0x00
-  dst_port[2], 0x02
-  seq_nr[4], 0x04
-  ack_nr[4], 0x08
-  vers_flags[2], 0x0c
-  window[2], 0x0e
-  tcp_cs[2], 0x10
-  urgent_ptr[2], 0x12
-  
-  #data
-}    
-*/
-      //this.config.logger.log(data);
-    })
-    .on('interface', interfaceInfo => {
-/*
-{
-    linkType: 1,
-    snapLen: 262144,
-    name: 'en0'
-}
-*/
-      //this.config.logger.log(interfaceInfo);
-    })
+        //this.config.logger.log(data);
+      })
+      .on('interface', interfaceInfo => {
+        /*
+        {
+            linkType: 1,
+            snapLen: 262144,
+            name: 'en0'
+        }
+        */
+        //this.config.logger.log(interfaceInfo);
+      })
   }
 }
 
