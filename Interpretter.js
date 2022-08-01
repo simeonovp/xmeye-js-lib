@@ -1,4 +1,4 @@
-const PcapReader = require('./PCapReader');
+const PcapReader = require('./PcapReader');
 const FrameAssembler = require('./FrameAssembler');
 const FrameParser = require('./FrameParser');
 
