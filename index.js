@@ -6,5 +6,5 @@ module.exports = {
   FrameBuilder: require('./FrameBuilder'),
   XmeyeInterpretter: require('./Interpretter'),
   Connection: require('./Connection'),
-  PcapReader: require('./PCapReader')
+  PcapReader: require('./PcapReader')
 }
