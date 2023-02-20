@@ -1,5 +1,5 @@
 const ResponseCodes = require('./ResponseCodes');
-const MessageIds = require('./Messages');
+const MessageIds = require('./MessageIds');
 const VideopacketPayloads = require('./VideopacketPayloads');
 const HEADER_LENGTH_BYTES = 20;
 
@@ -16,7 +16,7 @@ class FrameParser {
     this.onDisconnect = (msg=>{});
   }
 
-  parsHeader(buffer) {
+  parseHeader(buffer) {
     return {
       _Header: buffer.readUInt32LE(0),
       SessionID: buffer.readUInt32LE(4),
@@ -35,7 +35,7 @@ class FrameParser {
   // DVRIPClient.cmdResponseParser
   parse(buffer) {
     const msg = {};
-    msg.header = this.parsHeader(buffer);
+    msg.header = this.parseHeader(buffer);
     const length = HEADER_LENGTH_BYTES + msg.header.Size;
     
     if (length === HEADER_LENGTH_BYTES) {
@@ -79,30 +79,37 @@ class FrameParser {
     }
     else {
       const jsonString = buffer.toString('utf8', HEADER_LENGTH_BYTES, buffer[length - 1] ? length - 1 : length - 2);
+      let parsed
       try {
-        const parsed = JSON.parse(jsonString);
-        msg.Ret = parsed.Ret;
-        msg.SessionID = parsed.SessionID;
-
-        if (parsed.Ret && !ResponseCodes.SuccessCodes[parsed.Ret]) {
-          msg.ErrorMessage = ResponseCodes.ErrorCodes[parsed.Ret] || 'Unknown error';
-        }
-      
-        if (parsed.Name) {
-          msg.data = parsed[parsed.Name];
-          msg.name = parsed.Name;
-        } 
-        else {
-          const retMap = {};
-          for (let dataKey in parsed) {
-            if ((dataKey !== 'SessionID') && (dataKey !== 'Ret')) retMap[dataKey] = parsed[dataKey];
-          }
-          msg.data = retMap;
-        }
+        parsed = JSON.parse(jsonString);
       }
       catch(e) {
-        console.log('-- jsonString:' + jsonString);
-        throw e;
+        //workaround for missing trailing '}' (e.g. in OCX commands set General.General and General.Location)
+        try {
+          parsed = JSON.parse(jsonString + '}');
+        }
+        catch(e) {
+          console.log('-- jsonString:' + jsonString);
+          msg.ErrorMessage = `Parser error:${e}, payload:${jsonString}`;
+        }
+      }
+      msg.Ret = parsed.Ret;
+      msg.SessionID = parsed.SessionID;
+
+      if (parsed.Ret && !ResponseCodes.SuccessCodes[parsed.Ret]) {
+        msg.ErrorMessage = ResponseCodes.ErrorCodes[parsed.Ret] || 'Unknown error';
+      }
+    
+      if (parsed.Name) {
+        msg.data = parsed[parsed.Name];
+        msg.name = parsed.Name;
+      } 
+      else {
+        const retMap = {};
+        for (let dataKey in parsed) {
+          if ((dataKey !== 'SessionID') && (dataKey !== 'Ret')) retMap[dataKey] = parsed[dataKey];
+        }
+        msg.data = retMap;
       }
     }
     this.onResponse(msg);

@@ -1,4 +1,4 @@
-const MessageIds = require('./Messages');
+const MessageIds = require('./MessageIds');
 const CommandHeader = Buffer.from([0xFF, 0x01, 0, 0]);
 
 const MsgTemplate = {

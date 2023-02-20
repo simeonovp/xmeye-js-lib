@@ -1,6 +1,7 @@
 module.exports = {
   ResponseCodes: require('./ResponseCodes'),
-  MessageIds: require('./Messages'),
+  MessageIds: require('./MessageIds'),
+  Operations: require('./Operations'),
   FrameParser: require('./FrameParser'),
   FrameAssembler: require('./FrameAssembler'),
   FrameBuilder: require('./FrameBuilder'),
