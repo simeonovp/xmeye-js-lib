@@ -1,10 +1,10 @@
 const ErrorsToCode = Object.freeze({
 	NOT_LOGGEDIN: 105
-});
+})
 
 const RespsToCode = Object.freeze({
 	OK: 100
-});
+})
 
 const ErrorCodes = Object.freeze({
 	101: "Unknown error",
@@ -53,7 +53,7 @@ const ErrorCodes = Object.freeze({
 	606: "Verification failed",
 	607: "Configuration does not exist",
 	608: "Configuration parsing error"
-});
+})
 
 const SuccessCodes = Object.freeze({
 	100: "Success",
@@ -67,6 +67,6 @@ const SuccessCodes = Object.freeze({
 	602: "Application restart required",
 	603: "System restart required",
 	605: "Features are not supported"
-});
+})
 
-module.exports = {ErrorCodes, SuccessCodes, ErrorsToCode, RespsToCode};
+module.exports = {ErrorCodes, SuccessCodes, ErrorsToCode, RespsToCode}

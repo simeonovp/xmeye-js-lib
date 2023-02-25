@@ -1,5 +1,5 @@
-const PCAPNGParser = require('pcap-ng-parser');
-const fs = require('fs');
+const PCAPNGParser = require('pcap-ng-parser')
+const fs = require('fs')
 
 /*
   #eth[14]
@@ -38,16 +38,16 @@ const fs = require('fs');
   
   #data
 */
-const ethHeaderOffset = 0;
-const ethHeaderLength = 14;
-const ipHeaderOffset = ethHeaderOffset+ ethHeaderLength;
-const ipHeaderLength = 20;
-const protHeaderOffset = ipHeaderOffset + ipHeaderLength;
-const udpHeaderLength = 8;
-const tcpHeaderLength = 20;
-const tcpPayloadOffset = protHeaderOffset + tcpHeaderLength;
-const protTcp = 6;
-const flagTcpPSH = 8;
+const ethHeaderOffset = 0
+const ethHeaderLength = 14
+const ipHeaderOffset = ethHeaderOffset+ ethHeaderLength
+const ipHeaderLength = 20
+const protHeaderOffset = ipHeaderOffset + ipHeaderLength
+const udpHeaderLength = 8
+const tcpHeaderLength = 20
+const tcpPayloadOffset = protHeaderOffset + tcpHeaderLength
+const protTcp = 6
+const flagTcpPSH = 8
 
 class PcapReader {
 
@@ -59,88 +59,88 @@ class PcapReader {
       camport: 34567,
       camprot: 0, //0 - default (TCP)
       ...config
-    };
-    this.onRequest = null;
-    this.onResponse;
+    }
+    this.onRequest = null
+    this.onResponse
   }
 
   parse(path, { camip, camport, cammac }) { //camip as ArrayBuffer with length 4
-    const error = this.config.logger.error;
-    const log = this.config.logger.log;
-    const pcapNgParser = new PCAPNGParser();
-    const fileStream = fs.createReadStream(path);
+    const error = this.config.logger.error
+    const log = this.config.logger.log
+    const pcapNgParser = new PCAPNGParser()
+    const fileStream = fs.createReadStream(path)
     
     // alloc anf initialize header filter
-    const reqHeader = Buffer.alloc(tcpPayloadOffset);
-    reqHeader.writeUInt16BE(0x0800, ethHeaderOffset + 0x0c); // type IPv4
-    reqHeader.writeUInt8(0x45, ipHeaderOffset + 0x00); // version
-    reqHeader.writeUInt8(protTcp, ipHeaderOffset + 0x09);
+    const reqHeader = Buffer.alloc(tcpPayloadOffset)
+    reqHeader.writeUInt16BE(0x0800, ethHeaderOffset + 0x0c) // type IPv4
+    reqHeader.writeUInt8(0x45, ipHeaderOffset + 0x00) // version
+    reqHeader.writeUInt8(protTcp, ipHeaderOffset + 0x09)
 
-    const resHeader = Buffer.alloc(tcpPayloadOffset);
-    resHeader.writeUInt16BE(0x0800, ethHeaderOffset + 0x0c); // type IPv4
-    resHeader.writeUInt8(0x45, ipHeaderOffset + 0x00); // version
-    resHeader.writeUInt8(protTcp, ipHeaderOffset + 0x09);
+    const resHeader = Buffer.alloc(tcpPayloadOffset)
+    resHeader.writeUInt16BE(0x0800, ethHeaderOffset + 0x0c) // type IPv4
+    resHeader.writeUInt8(0x45, ipHeaderOffset + 0x00) // version
+    resHeader.writeUInt8(protTcp, ipHeaderOffset + 0x09)
 
-    cammac = cammac || this.config.cammac;
+    cammac = cammac || this.config.cammac
     if (camip) {
-      if (camip.length !== 6) return error('invalid cammac length ' + cammac.length);
+      if (camip.length !== 6) return error('invalid cammac length ' + cammac.length)
       for (let i = 0; i < camip.length; i++) {
-        reqHeader.writeUInt8(cammac[i], ethHeaderOffset + 0x00); //dst_mac
-        resHeader.writeUInt8(cammac[i], ethHeaderOffset + 0x06); //src_mac
+        reqHeader.writeUInt8(cammac[i], ethHeaderOffset + 0x00) //dst_mac
+        resHeader.writeUInt8(cammac[i], ethHeaderOffset + 0x06) //src_mac
       }
     }
 
-    camip = camip || this.config.camip;
+    camip = camip || this.config.camip
     if (camip) {
-      if (camip.length !== 4) return error('invalid camip length ' + camip.length);
+      if (camip.length !== 4) return error('invalid camip length ' + camip.length)
       for (let i = 0; i < camip.length; i++) {
-        reqHeader.writeUInt8(camip[i], ipHeaderOffset + 0x10); //dst_ip
-        resHeader.writeUInt8(camip[i], ipHeaderOffset + 0x0c); //src_ip
+        reqHeader.writeUInt8(camip[i], ipHeaderOffset + 0x10) //dst_ip
+        resHeader.writeUInt8(camip[i], ipHeaderOffset + 0x0c) //src_ip
       }
     }
 
-    camport = camport || this.config.camport;
+    camport = camport || this.config.camport
     if(camport) {
-      reqHeader.writeUInt16BE(camport, protHeaderOffset + 0x02); //dst_port
-      resHeader.writeUInt16BE(camport, protHeaderOffset + 0x00); //src_port
+      reqHeader.writeUInt16BE(camport, protHeaderOffset + 0x02) //dst_port
+      resHeader.writeUInt16BE(camport, protHeaderOffset + 0x00) //src_port
     }
 
     
     const isRequest = data => {
-      for (let i = 0; i < reqHeader.length; i++) if (reqHeader[i] && (reqHeader[i] != data[i])) return false;
-      if (!(data[protHeaderOffset + 0x0d] & flagTcpPSH)) return false; // no data package
-      const length = data.readInt16BE(ipHeaderOffset + 0x02) - ipHeaderLength - tcpHeaderLength;
+      for (let i = 0; i < reqHeader.length; i++) if (reqHeader[i] && (reqHeader[i] != data[i])) return false
+      if (!(data[protHeaderOffset + 0x0d] & flagTcpPSH)) return false // no data package
+      const length = data.readInt16BE(ipHeaderOffset + 0x02) - ipHeaderLength - tcpHeaderLength
       if (length <= 0) {
-        error(`Request length (${length}, ${data.length}) <= 0`);
-        log(data);
-        return false;
+        error(`Request length (${length}, ${data.length}) <= 0`)
+        log(data)
+        return false
       }
       if (tcpPayloadOffset + length !== data.length) {
-        error(`Request length (${length}) invalid (${tcpPayloadOffset + length} != ${data.length})`);
-        log(data);
-        return false;
+        error(`Request length (${length}) invalid (${tcpPayloadOffset + length} != ${data.length})`)
+        log(data)
+        return false
       }
-      return true;
-    };
+      return true
+    }
 
     const isResponse = data => {
       for (let i = 0; i < resHeader.length; i++) {
-        if (resHeader[i] && (resHeader[i] != data[i])) return false;
+        if (resHeader[i] && (resHeader[i] != data[i])) return false
       }
-      if (!(data[protHeaderOffset + 0x0d] & flagTcpPSH)) return false;
-      const length = data.readUInt16BE(ipHeaderOffset + 0x02) - ipHeaderLength - tcpHeaderLength;
+      if (!(data[protHeaderOffset + 0x0d] & flagTcpPSH)) return false
+      const length = data.readUInt16BE(ipHeaderOffset + 0x02) - ipHeaderLength - tcpHeaderLength
       if (length <= 0) {
-        error(`Response length (${length}, ${data.length}) <= 0`);
-        log(data);
-        return false;
+        error(`Response length (${length}, ${data.length}) <= 0`)
+        log(data)
+        return false
       }
       if (tcpPayloadOffset + length !== data.length) {
-        error(`Response length (${length}) invalid (${tcpPayloadOffset + length} != ${data.length})`);
-        log(data);
-        return false;
+        error(`Response length (${length}) invalid (${tcpPayloadOffset + length} != ${data.length})`)
+        log(data)
+        return false
       }
-      return true;
-    };
+      return true
+    }
 
     fileStream.pipe(pcapNgParser)
       .on('data', chunk => {
@@ -152,16 +152,16 @@ class PcapReader {
           data: <Buffer 00 50 b6 be 7a 27 00 12 41 73 fb 39 08 00 45 00 05 dc fb 39 40 00 40 06 b5 ea c0 a8 01 a4 c0 a8 01 03 00 50 ec 98 d2 28 f2 7c 0f 1f 71 6c 50 10 07 a7 ... 1464 more bytes>
         }
         */
-        const data = chunk && chunk.data;
-        if (data.length < tcpPayloadOffset) return;
+        const data = chunk && chunk.data
+        if (data.length < tcpPayloadOffset) return
         
         if (this.onRequest && isRequest(data)) {
-          this.onRequest(data.subarray(tcpPayloadOffset));
+          this.onRequest(data.subarray(tcpPayloadOffset))
         }
         else if (this.onResponse && isResponse(data)) {
-          this.onResponse(data.subarray(tcpPayloadOffset));
+          this.onResponse(data.subarray(tcpPayloadOffset))
         }
-        //this.config.logger.log(data);
+        //this.config.logger.log(data)
       })
       .on('interface', interfaceInfo => {
         /*
@@ -171,9 +171,9 @@ class PcapReader {
             name: 'en0'
         }
         */
-        //this.config.logger.log(interfaceInfo);
+        //this.config.logger.log(interfaceInfo)
       })
   }
 }
 
-module.exports = PcapReader;
+module.exports = PcapReader

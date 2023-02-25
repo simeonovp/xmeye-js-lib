@@ -1,8 +1,8 @@
 module.exports = Object.freeze({
 	LOGIN_REQ1: 999,
-	LOGIN_RSP: 1000,
 	LOGIN_REQ2: 1000,
 	LOGIN_RES2: 1001,
+	LOGIN_RSP: 1000,
 	LOGOUT_REQ: 1001,
 	LOGOUT_RSP: 1002,
 	FORCELOGOUT_REQ: 1003,
@@ -154,5 +154,8 @@ module.exports = Object.freeze({
   PHOTO_GET_RSP: 1601,
   
   UPDATE_REQ: 2000,
-  UPDATE_RES: 2001
-});
+  UPDATE_RES: 2001,
+
+  FTP_TEST_REQ: 2008,
+  FTP_TEST_RES: 2009,
+})
