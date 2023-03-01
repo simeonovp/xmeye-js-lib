@@ -1,4 +1,4 @@
-const Operations = Object.freeze({
+module.exports = Object.freeze({
   "Login": {
     "type": "get",
     "input": {
@@ -6,18 +6,7 @@ const Operations = Object.freeze({
     },
     "output": {
       "message": "LOGIN_RES2"
-    },
-    "commands": {}
-  },
-  "Logout": {
-    "type": "get",
-    "input": {
-      "message": "LOGOUT_REQ"
-    },
-    "output": {
-      "message": "LOGOUT_RSP"
-    },
-    "commands": {}
+    }
   },
   "ForceLogout": {
     "type": "get",
@@ -26,18 +15,16 @@ const Operations = Object.freeze({
     },
     "output": {
       "message": "FORCELOGOUT_RSP"
-    },
-    "commands": {}
+    }
   },
   "KeepAlive": {
-    "type": "ping",
+    "type": "command",
     "input": {
       "message": "KEEPALIVE_REQ"
     },
     "output": {
       "message": "KEEPALIVE_RSP"
-    },
-    "commands": {}
+    }
   },
   "SysInfo": {
     "type": "get",
@@ -46,8 +33,7 @@ const Operations = Object.freeze({
     },
     "output": {
       "message": "SYSINFO_RSP"
-    },
-    "commands": {}
+    }
   },
   "ConfigSet": {
     "type": "set",
@@ -76,13 +62,22 @@ const Operations = Object.freeze({
       "message": "DEFAULT_CONFIG_GET_RSP"
     }
   },
-  "ConfigChannel": {
+  "ConfigChannelGet": {
     "type": "get",
     "input": {
       "message": "CONFIG_CHANNELTITLE_GET"
     },
     "output": {
       "message": "CONFIG_CHANNELTITLE_GET_RSP"
+    }
+  },
+  "ConfigChannelSet": {
+    "type": "set",
+    "input": {
+      "message": "CONFIG_CHANNELTITLE_SET"
+    },
+    "output": {
+      "message": "CONFIG_CHANNELTITLE_SET_RSP"
     }
   },
   "ConfigChannelDot": {
@@ -212,7 +207,7 @@ const Operations = Object.freeze({
     }
   },
   "AddGroup": {
-    "type": "set",
+    "type": "command",
     "input": {
       "message": "ADDGROUP_REQ"
     },
@@ -221,7 +216,7 @@ const Operations = Object.freeze({
     }
   },
   "ModifyGroup": {
-    "type": "set",
+    "type": "command",
     "input": {
       "message": "MODIFYGROUP_REQ"
     },
@@ -230,7 +225,7 @@ const Operations = Object.freeze({
     }
   },
   "DeleteGroup": {
-    "type": "set",
+    "type": "command",
     "input": {
       "message": "DELETEGROUP_REQ"
     },
@@ -239,7 +234,7 @@ const Operations = Object.freeze({
     }
   },
   "AddUser": {
-    "type": "set",
+    "type": "command",
     "input": {
       "message": "ADDUSER_REQ"
     },
@@ -248,7 +243,7 @@ const Operations = Object.freeze({
     }
   },
   "ModifyUser": {
-    "type": "set",
+    "type": "command",
     "input": {
       "message": "MODIFYUSER_REQ"
     },
@@ -257,7 +252,7 @@ const Operations = Object.freeze({
     }
   },
   "DeleteUser": {
-    "type": "set",
+    "type": "command",
     "input": {
       "message": "DELETEUSER_REQ"
     },
@@ -266,7 +261,7 @@ const Operations = Object.freeze({
     }
   },
   "ModifyPassword": {
-    "type": "set",
+    "type": "command",
     "input": {
       "message": "MODIFYPASSWORD_REQ"
     },
@@ -293,7 +288,7 @@ const Operations = Object.freeze({
     }
   },
   "Alarm": {
-    "type": "unknown",
+    "type": "method",
     "input": {
       "message": "ALARM_REQ"
     },
@@ -521,5 +516,3 @@ const Operations = Object.freeze({
     }
   }
 })
-
-module.exports = Operations

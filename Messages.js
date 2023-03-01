@@ -1,7 +1,4 @@
 module.exports = Object.freeze({
-  "LOGIN_REQ1": {
-    "id": 999
-  },
   "LOGIN_REQ2": {
     "id": 1000,
     "type": "object",
@@ -41,15 +38,6 @@ module.exports = Object.freeze({
       }
     }
   },
-  "LOGIN_RSP": {
-    "id": 1000
-  },
-  "LOGOUT_REQ": {
-    "id": 1001
-  },
-  "LOGOUT_RSP": {
-    "id": 1002
-  },
   "FORCELOGOUT_REQ": {
     "id": 1003
   },
@@ -75,13 +63,13 @@ module.exports = Object.freeze({
   "SYSINFO_REQ": {
     "id": 1020,
     "commands": {
+      "StorageInfo": {
+        "type": "null"
+      },
       "SystemInfo": {
         "type": "null"
       },
       "WorkState": {
-        "type": "null"
-      },
-      "StorageInfo": {
         "type": "null"
       }
     }
@@ -89,6 +77,61 @@ module.exports = Object.freeze({
   "SYSINFO_RSP": {
     "id": 1021,
     "commands": {
+      "StorageInfo": {
+        "type": "array",
+        "element": {
+          "type": "object",
+          "properties": {
+            "PartNumber": {
+              "type": "number"
+            },
+            "Partition": {
+              "type": "array",
+              "element": {
+                "type": "object",
+                "properties": {
+                  "DirverType": {
+                    "type": "number"
+                  },
+                  "IsCurrent": {
+                    "type": "boolean"
+                  },
+                  "LogicSerialNo": {
+                    "type": "number"
+                  },
+                  "NewEndTime": {
+                    "type": "string"
+                  },
+                  "NewStartTime": {
+                    "type": "string"
+                  },
+                  "OldEndTime": {
+                    "type": "string"
+                  },
+                  "OldStartTime": {
+                    "type": "string"
+                  },
+                  "RemainSpace": {
+                    "type": "string"
+                  },
+                  "Status": {
+                    "type": "number"
+                  },
+                  "TotalSpace": {
+                    "type": "string"
+                  },
+                  "fsType": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "PlysicalNo": {
+              "type": "number"
+            }
+          }
+        }
+      },
       "SystemInfo": {
         "type": "object",
         "properties": {
@@ -195,89 +238,23 @@ module.exports = Object.freeze({
             }
           }
         }
-      },
-      "StorageInfo": {
-        "type": "array",
-        "element": {
-          "type": "object",
-          "properties": {
-            "PartNumber": {
-              "type": "number"
-            },
-            "Partition": {
-              "type": "array",
-              "element": {
-                "type": "object",
-                "properties": {
-                  "DirverType": {
-                    "type": "number"
-                  },
-                  "IsCurrent": {
-                    "type": "boolean"
-                  },
-                  "LogicSerialNo": {
-                    "type": "number"
-                  },
-                  "NewEndTime": {
-                    "type": "string"
-                  },
-                  "NewStartTime": {
-                    "type": "string"
-                  },
-                  "OldEndTime": {
-                    "type": "string"
-                  },
-                  "OldStartTime": {
-                    "type": "string"
-                  },
-                  "RemainSpace": {
-                    "type": "string"
-                  },
-                  "Status": {
-                    "type": "number"
-                  },
-                  "TotalSpace": {
-                    "type": "string"
-                  },
-                  "fsType": {
-                    "type": "string"
-                  }
-                }
-              }
-            },
-            "PlysicalNo": {
-              "type": "number"
-            }
-          }
-        }
       }
     }
   },
   "CONFIG_SET": {
     "id": 1040,
     "commands": {
-      "BrowserLanguage": {
-        "type": "object",
-        "properties": {
-          "BrowserLanguageType": {
-            "type": "number"
-          }
-        }
-      },
-      "Storage.StoragePosition": {
-        "type": "object",
-        "properties": {
-          "DVD": {
-            "type": "boolean"
-          },
-          "SATA": {
-            "type": "boolean"
-          },
-          "SD": {
-            "type": "boolean"
-          },
-          "USB": {
-            "type": "boolean"
+      "AVEnc.EncodeStaticParam": {
+        "type": "array",
+        "element": {
+          "type": "object",
+          "properties": {
+            "Level": {
+              "type": "number"
+            },
+            "Profile": {
+              "type": "number"
+            }
           }
         }
       },
@@ -295,13 +272,10 @@ module.exports = Object.freeze({
           }
         }
       },
-      "System.TimeZone": {
+      "BrowserLanguage": {
         "type": "object",
         "properties": {
-          "FirstUserTimeZone": {
-            "type": "number"
-          },
-          "timeMin": {
+          "BrowserLanguageType": {
             "type": "number"
           }
         }
@@ -413,54 +387,69 @@ module.exports = Object.freeze({
           }
         }
       },
-      "NetWork.NetNTP": {
-        "type": "object",
-        "properties": {
-          "Enable": {
-            "type": "boolean"
-          },
-          "Server": {
-            "type": "object",
-            "properties": {
-              "Address": {
-                "type": "string"
-              },
-              "Anonymity": {
-                "type": "boolean"
-              },
-              "Name": {
-                "type": "string"
-              },
-              "Password": {
-                "type": "string"
-              },
-              "Port": {
-                "type": "number"
-              },
-              "UserName": {
-                "type": "string"
-              }
-            }
-          },
-          "TimeZone": {
-            "type": "number"
-          },
-          "UpdatePeriod": {
-            "type": "number"
-          }
-        }
-      },
-      "AVEnc.EncodeStaticParam": {
+      "NetWork.AlarmServer": {
         "type": "array",
         "element": {
           "type": "object",
           "properties": {
-            "Level": {
-              "type": "number"
+            "Alarm": {
+              "type": "boolean"
             },
-            "Profile": {
-              "type": "number"
+            "Enable": {
+              "type": "boolean"
+            },
+            "Log": {
+              "type": "boolean"
+            },
+            "Protocol": {
+              "type": "string"
+            },
+            "Server": {
+              "type": "object",
+              "properties": {
+                "Address": {
+                  "type": "string"
+                },
+                "Anonymity": {
+                  "type": "boolean"
+                },
+                "Name": {
+                  "type": "string"
+                },
+                "Password": {
+                  "type": "string"
+                },
+                "Port": {
+                  "type": "number"
+                },
+                "UserName": {
+                  "type": "string"
+                }
+              }
             }
+          }
+        }
+      },
+      "NetWork.DAS": {
+        "type": "object",
+        "properties": {
+          "DeviceID": {
+            "type": "string"
+          },
+          "Enable": {
+            "type": "boolean"
+          },
+          "Password": {
+            "type": "string"
+          },
+          "Port": {
+            "type": "number"
+          },
+          "ServerAddr": {
+            "type": "string"
+          },
+          "UserName": {
+            "type": "string"
           }
         }
       },
@@ -472,11 +461,72 @@ module.exports = Object.freeze({
           }
         }
       },
-      "NetWork.OnvifPwdCheckout": {
+      "NetWork.Nat": {
         "type": "object",
         "properties": {
-          "Enable": {
+          "Addr": {
+            "type": "string"
+          },
+          "DnsServer1": {
+            "type": "string"
+          },
+          "DnsServer2": {
+            "type": "string"
+          },
+          "NatEnable": {
             "type": "boolean"
+          },
+          "Port": {
+            "type": "number"
+          },
+          "XMeyeMTU": {
+            "type": "number"
+          }
+        }
+      },
+      "NetWork.NetARSP": {
+        "type": "array",
+        "element": {
+          "type": "object",
+          "properties": {
+            "ARSPKey": {
+              "type": "string"
+            },
+            "Enable": {
+              "type": "boolean"
+            },
+            "HttpPort": {
+              "type": "number"
+            },
+            "Interval": {
+              "type": "number"
+            },
+            "Server": {
+              "type": "object",
+              "properties": {
+                "Address": {
+                  "type": "string"
+                },
+                "Anonymity": {
+                  "type": "boolean"
+                },
+                "Name": {
+                  "type": "string"
+                },
+                "Password": {
+                  "type": "string"
+                },
+                "Port": {
+                  "type": "number"
+                },
+                "UserName": {
+                  "type": "string"
+                }
+              }
+            },
+            "URL": {
+              "type": "string"
+            }
           }
         }
       },
@@ -524,26 +574,6 @@ module.exports = Object.freeze({
           },
           "UseHSDownLoad": {
             "type": "boolean"
-          }
-        }
-      },
-      "NetWork.NetIPFilter": {
-        "type": "object",
-        "properties": {
-          "Banned": {
-            "type": "array",
-            "element": {
-              "type": "string"
-            }
-          },
-          "Enable": {
-            "type": "boolean"
-          },
-          "Trusted": {
-            "type": "array",
-            "element": {
-              "type": "string"
-            }
           }
         }
       },
@@ -642,72 +672,6 @@ module.exports = Object.freeze({
           }
         }
       },
-      "NetWork.NetARSP": {
-        "type": "array",
-        "element": {
-          "type": "object",
-          "properties": {
-            "ARSPKey": {
-              "type": "string"
-            },
-            "Enable": {
-              "type": "boolean"
-            },
-            "HttpPort": {
-              "type": "number"
-            },
-            "Interval": {
-              "type": "number"
-            },
-            "Server": {
-              "type": "object",
-              "properties": {
-                "Address": {
-                  "type": "string"
-                },
-                "Anonymity": {
-                  "type": "boolean"
-                },
-                "Name": {
-                  "type": "string"
-                },
-                "Password": {
-                  "type": "string"
-                },
-                "Port": {
-                  "type": "number"
-                },
-                "UserName": {
-                  "type": "string"
-                }
-              }
-            },
-            "URL": {
-              "type": "string"
-            }
-          }
-        }
-      },
-      "NetWork.Upnp": {
-        "type": "object",
-        "properties": {
-          "Enable": {
-            "type": "boolean"
-          },
-          "HTTPPort": {
-            "type": "number"
-          },
-          "MediaPort": {
-            "type": "number"
-          },
-          "MobilePort": {
-            "type": "number"
-          },
-          "State": {
-            "type": "boolean"
-          }
-        }
-      },
       "NetWork.NetFTP": {
         "type": "object",
         "properties": {
@@ -745,46 +709,85 @@ module.exports = Object.freeze({
           }
         }
       },
-      "NetWork.AlarmServer": {
-        "type": "array",
-        "element": {
-          "type": "object",
-          "properties": {
-            "Alarm": {
-              "type": "boolean"
-            },
-            "Enable": {
-              "type": "boolean"
-            },
-            "Log": {
-              "type": "boolean"
-            },
-            "Protocol": {
+      "NetWork.NetIPFilter": {
+        "type": "object",
+        "properties": {
+          "Banned": {
+            "type": "array",
+            "element": {
               "type": "string"
-            },
-            "Server": {
-              "type": "object",
-              "properties": {
-                "Address": {
-                  "type": "string"
-                },
-                "Anonymity": {
-                  "type": "boolean"
-                },
-                "Name": {
-                  "type": "string"
-                },
-                "Password": {
-                  "type": "string"
-                },
-                "Port": {
-                  "type": "number"
-                },
-                "UserName": {
-                  "type": "string"
-                }
+            }
+          },
+          "Enable": {
+            "type": "boolean"
+          },
+          "Trusted": {
+            "type": "array",
+            "element": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "NetWork.NetNTP": {
+        "type": "object",
+        "properties": {
+          "Enable": {
+            "type": "boolean"
+          },
+          "Server": {
+            "type": "object",
+            "properties": {
+              "Address": {
+                "type": "string"
+              },
+              "Anonymity": {
+                "type": "boolean"
+              },
+              "Name": {
+                "type": "string"
+              },
+              "Password": {
+                "type": "string"
+              },
+              "Port": {
+                "type": "number"
+              },
+              "UserName": {
+                "type": "string"
               }
             }
+          },
+          "TimeZone": {
+            "type": "number"
+          },
+          "UpdatePeriod": {
+            "type": "number"
+          }
+        }
+      },
+      "NetWork.OnvifPwdCheckout": {
+        "type": "object",
+        "properties": {
+          "Enable": {
+            "type": "boolean"
+          }
+        }
+      },
+      "NetWork.PMS": {
+        "type": "object",
+        "properties": {
+          "BoxID": {
+            "type": "string"
+          },
+          "Enable": {
+            "type": "boolean"
+          },
+          "Port": {
+            "type": "number"
+          },
+          "ServName": {
+            "type": "string"
           }
         }
       },
@@ -845,66 +848,40 @@ module.exports = Object.freeze({
           }
         }
       },
-      "NetWork.DAS": {
+      "NetWork.Upnp": {
         "type": "object",
         "properties": {
-          "DeviceID": {
-            "type": "string"
-          },
           "Enable": {
             "type": "boolean"
           },
-          "Password": {
-            "type": "string"
-          },
-          "Port": {
+          "HTTPPort": {
             "type": "number"
           },
-          "ServerAddr": {
-            "type": "string"
+          "MediaPort": {
+            "type": "number"
           },
-          "UserName": {
-            "type": "string"
+          "MobilePort": {
+            "type": "number"
+          },
+          "State": {
+            "type": "boolean"
           }
         }
       },
-      "NetWork.Nat": {
+      "Storage.StoragePosition": {
         "type": "object",
         "properties": {
-          "Addr": {
-            "type": "string"
-          },
-          "DnsServer1": {
-            "type": "string"
-          },
-          "DnsServer2": {
-            "type": "string"
-          },
-          "NatEnable": {
+          "DVD": {
             "type": "boolean"
           },
-          "Port": {
-            "type": "number"
-          },
-          "XMeyeMTU": {
-            "type": "number"
-          }
-        }
-      },
-      "NetWork.PMS": {
-        "type": "object",
-        "properties": {
-          "BoxID": {
-            "type": "string"
-          },
-          "Enable": {
+          "SATA": {
             "type": "boolean"
           },
-          "Port": {
-            "type": "number"
+          "SD": {
+            "type": "boolean"
           },
-          "ServName": {
-            "type": "string"
+          "USB": {
+            "type": "boolean"
           }
         }
       },
@@ -947,6 +924,17 @@ module.exports = Object.freeze({
             "type": "number"
           }
         }
+      },
+      "System.TimeZone": {
+        "type": "object",
+        "properties": {
+          "FirstUserTimeZone": {
+            "type": "number"
+          },
+          "timeMin": {
+            "type": "number"
+          }
+        }
       }
     }
   },
@@ -962,40 +950,34 @@ module.exports = Object.freeze({
   "CONFIG_GET": {
     "id": 1042,
     "commands": {
-      "AppDowloadLink": {
+      "AVEnc.EncodeStaticParam": {
         "type": "null"
       },
-      "NetWork.DigManagerShow": {
-        "type": "null"
-      },
-      "Storage.StoragePosition": {
-        "type": "null"
-      },
-      "Record.[0]": {
-        "type": "null"
-      },
-      "Snap.SnapConfig.[0]": {
-        "type": "null"
-      },
-      "Detect.MotionDetect.[0]": {
-        "type": "null"
-      },
-      "Detect.HumanDetection.[0]": {
-        "type": "null"
-      },
-      "Detect.BlindDetect.[0]": {
-        "type": "null"
-      },
-      "Detect.LossDetect.[0]": {
-        "type": "null"
-      },
-      "Alarm.LocalAlarm.[0]": {
+      "AVEnc.SmartH264V2.[0]": {
         "type": "null"
       },
       "Alarm.AlarmOut": {
         "type": "null"
       },
-      "Storage.StorageNotExist": {
+      "Alarm.LocalAlarm.[0]": {
+        "type": "null"
+      },
+      "AppDowloadLink": {
+        "type": "null"
+      },
+      "Detect.BlindDetect.[0]": {
+        "type": "null"
+      },
+      "Detect.HumanDetection.[0]": {
+        "type": "null"
+      },
+      "Detect.LossDetect.[0]": {
+        "type": "null"
+      },
+      "Detect.MotionDetect.[0]": {
+        "type": "null"
+      },
+      "General.AutoMaintain": {
         "type": "null"
       },
       "General.General": {
@@ -1004,58 +986,7 @@ module.exports = Object.freeze({
       "General.Location": {
         "type": "null"
       },
-      "NetWork.NetNTP": {
-        "type": "null"
-      },
-      "System.TimeZone": {
-        "type": "null"
-      },
-      "AVEnc.EncodeStaticParam": {
-        "type": "null"
-      },
-      "Simplify.Encode": {
-        "type": "null"
-      },
-      "AVEnc.SmartH264V2.[0]": {
-        "type": "null"
-      },
-      "NetWork.NetCommon": {
-        "type": "null"
-      },
-      "NetWork.NetDHCP": {
-        "type": "null"
-      },
-      "NetWork.NetDNS": {
-        "type": "null"
-      },
-      "NetWork.IPAdaptive": {
-        "type": "null"
-      },
-      "NetWork.OnvifPwdCheckout": {
-        "type": "null"
-      },
-      "OEMcfg.Correspondent": {
-        "type": "null"
-      },
-      "NetWork.RTSP": {
-        "type": "null"
-      },
-      "NetWork.NetIPFilter": {
-        "type": "null"
-      },
-      "NetWork.NetDDNS": {
-        "type": "null"
-      },
-      "NetWork.NetEmail": {
-        "type": "null"
-      },
-      "NetWork.NetARSP": {
-        "type": "null"
-      },
-      "NetWork.Upnp": {
-        "type": "null"
-      },
-      "NetWork.NetFTP": {
+      "General.PwdSafety": {
         "type": "null"
       },
       "NetWork.AlarmServer": {
@@ -1064,22 +995,79 @@ module.exports = Object.freeze({
       "NetWork.DAS": {
         "type": "null"
       },
+      "NetWork.DigManagerShow": {
+        "type": "null"
+      },
+      "NetWork.IPAdaptive": {
+        "type": "null"
+      },
       "NetWork.Nat": {
+        "type": "null"
+      },
+      "NetWork.NetARSP": {
+        "type": "null"
+      },
+      "NetWork.NetCommon": {
+        "type": "null"
+      },
+      "NetWork.NetDDNS": {
+        "type": "null"
+      },
+      "NetWork.NetDHCP": {
+        "type": "null"
+      },
+      "NetWork.NetDNS": {
+        "type": "null"
+      },
+      "NetWork.NetEmail": {
+        "type": "null"
+      },
+      "NetWork.NetFTP": {
+        "type": "null"
+      },
+      "NetWork.NetIPFilter": {
+        "type": "null"
+      },
+      "NetWork.NetNTP": {
+        "type": "null"
+      },
+      "NetWork.OnvifPwdCheckout": {
         "type": "null"
       },
       "NetWork.PMS": {
         "type": "null"
       },
+      "NetWork.RTSP": {
+        "type": "null"
+      },
+      "NetWork.Upnp": {
+        "type": "null"
+      },
+      "OEMcfg.Correspondent": {
+        "type": "null"
+      },
       "PMS.num": {
         "type": "null"
       },
-      "General.AutoMaintain": {
+      "Record.[0]": {
+        "type": "null"
+      },
+      "Simplify.Encode": {
+        "type": "null"
+      },
+      "Snap.SnapConfig.[0]": {
+        "type": "null"
+      },
+      "Storage.StorageNotExist": {
+        "type": "null"
+      },
+      "Storage.StoragePosition": {
         "type": "null"
       },
       "System.ExUserMap": {
         "type": "null"
       },
-      "General.PwdSafety": {
+      "System.TimeZone": {
         "type": "null"
       }
     }
@@ -1087,6 +1075,276 @@ module.exports = Object.freeze({
   "CONFIG_GET_RSP": {
     "id": 1043,
     "commands": {
+      "AVEnc.EncodeStaticParam": {
+        "type": "array",
+        "element": {
+          "type": "object",
+          "properties": {
+            "Level": {
+              "type": "number"
+            },
+            "Profile": {
+              "type": "number"
+            }
+          }
+        }
+      },
+      "AVEnc.SmartH264V2.[0]": {
+        "type": "object",
+        "properties": {
+          "Smart264PlusV2": {
+            "type": "array",
+            "element": {
+              "type": "object",
+              "properties": {
+                "SmartH264Plus": {
+                  "type": "number"
+                }
+              }
+            }
+          },
+          "Smart264V2": {
+            "type": "array",
+            "element": {
+              "type": "object",
+              "properties": {
+                "SmartH264": {
+                  "type": "number"
+                }
+              }
+            }
+          }
+        }
+      },
+      "AVEnc.VideoWidget": {
+        "type": "array",
+        "element": {
+          "type": "object",
+          "properties": {
+            "ChannelTitle": {
+              "type": "object",
+              "properties": {
+                "Name": {
+                  "type": "string"
+                },
+                "SerialNo": {
+                  "type": "string"
+                }
+              }
+            },
+            "ChannelTitleAttribute": {
+              "type": "object",
+              "properties": {
+                "BackColor": {
+                  "type": "string"
+                },
+                "EncodeBlend": {
+                  "type": "boolean"
+                },
+                "FrontColor": {
+                  "type": "string"
+                },
+                "PreviewBlend": {
+                  "type": "boolean"
+                },
+                "RelativePos": {
+                  "type": "array",
+                  "element": {
+                    "type": "number"
+                  }
+                }
+              }
+            },
+            "Covers": {
+              "type": "array",
+              "element": {
+                "type": "object",
+                "properties": {
+                  "BackColor": {
+                    "type": "string"
+                  },
+                  "EncodeBlend": {
+                    "type": "boolean"
+                  },
+                  "FrontColor": {
+                    "type": "string"
+                  },
+                  "PreviewBlend": {
+                    "type": "boolean"
+                  },
+                  "RelativePos": {
+                    "type": "array",
+                    "element": {
+                      "type": "number"
+                    }
+                  }
+                }
+              }
+            },
+            "CoversNum": {
+              "type": "number"
+            },
+            "TimeTitleAttribute": {
+              "type": "object",
+              "properties": {
+                "BackColor": {
+                  "type": "string"
+                },
+                "EncodeBlend": {
+                  "type": "boolean"
+                },
+                "FrontColor": {
+                  "type": "string"
+                },
+                "PreviewBlend": {
+                  "type": "boolean"
+                },
+                "RelativePos": {
+                  "type": "array",
+                  "element": {
+                    "type": "number"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "Alarm.AlarmOut": {
+        "type": "array",
+        "element": {
+          "type": "object",
+          "properties": {
+            "AlarmOutStatus": {
+              "type": "string"
+            },
+            "AlarmOutType": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "Alarm.LocalAlarm.[0]": {
+        "type": "object",
+        "properties": {
+          "Enable": {
+            "type": "boolean"
+          },
+          "EventHandler": {
+            "type": "object",
+            "properties": {
+              "AlarmInfo": {
+                "type": "string"
+              },
+              "AlarmOutEnable": {
+                "type": "boolean"
+              },
+              "AlarmOutLatch": {
+                "type": "number"
+              },
+              "AlarmOutMask": {
+                "type": "string"
+              },
+              "BeepEnable": {
+                "type": "boolean"
+              },
+              "EventLatch": {
+                "type": "number"
+              },
+              "FTPEnable": {
+                "type": "boolean"
+              },
+              "LogEnable": {
+                "type": "boolean"
+              },
+              "MailEnable": {
+                "type": "boolean"
+              },
+              "MatrixEnable": {
+                "type": "boolean"
+              },
+              "MatrixMask": {
+                "type": "string"
+              },
+              "MessageEnable": {
+                "type": "boolean"
+              },
+              "MsgtoNetEnable": {
+                "type": "boolean"
+              },
+              "MultimediaMsgEnable": {
+                "type": "boolean"
+              },
+              "PtzEnable": {
+                "type": "boolean"
+              },
+              "PtzLink": {
+                "type": "array",
+                "element": {
+                  "type": "array",
+                  "element": {
+                    "type": "string"
+                  }
+                }
+              },
+              "RecordEnable": {
+                "type": "boolean"
+              },
+              "RecordLatch": {
+                "type": "number"
+              },
+              "RecordMask": {
+                "type": "string"
+              },
+              "ShortMsgEnable": {
+                "type": "boolean"
+              },
+              "ShowInfo": {
+                "type": "boolean"
+              },
+              "ShowInfoMask": {
+                "type": "string"
+              },
+              "SnapEnable": {
+                "type": "boolean"
+              },
+              "SnapShotMask": {
+                "type": "string"
+              },
+              "TimeSection": {
+                "type": "array",
+                "element": {
+                  "type": "array",
+                  "element": {
+                    "type": "string"
+                  }
+                }
+              },
+              "TipEnable": {
+                "type": "boolean"
+              },
+              "TourEnable": {
+                "type": "boolean"
+              },
+              "TourMask": {
+                "type": "string"
+              },
+              "VoiceEnable": {
+                "type": "boolean"
+              },
+              "VoiceTipInterval": {
+                "type": "number"
+              },
+              "VoiceType": {
+                "type": "number"
+              }
+            }
+          },
+          "SensorType": {
+            "type": "string"
+          }
+        }
+      },
       "AppDowloadLink": {
         "type": "object",
         "properties": {
@@ -1116,77 +1374,441 @@ module.exports = Object.freeze({
           }
         }
       },
-      "Storage.StoragePosition": {
-        "type": "object",
-        "properties": {
-          "DVD": {
-            "type": "boolean"
-          },
-          "SATA": {
-            "type": "boolean"
-          },
-          "SD": {
-            "type": "boolean"
-          },
-          "USB": {
-            "type": "boolean"
+      "Camera.ClearFog": {
+        "type": "array",
+        "element": {
+          "type": "object",
+          "properties": {
+            "enable": {
+              "type": "number"
+            },
+            "level": {
+              "type": "number"
+            }
           }
         }
       },
-      "Record.[0]": {
+      "Camera.Param.[0]": {
         "type": "object",
         "properties": {
-          "Mask": {
-            "type": "array",
-            "element": {
-              "type": "array",
-              "element": {
-                "type": "string"
-              }
-            }
-          },
-          "PacketLength": {
+          "AeSensitivity": {
             "type": "number"
           },
-          "PreRecord": {
-            "type": "number"
-          },
-          "RecordMode": {
+          "ApertureMode": {
             "type": "string"
           },
-          "Redundancy": {
-            "type": "boolean"
+          "BLCMode": {
+            "type": "string"
           },
-          "TimeSection": {
-            "type": "array",
-            "element": {
-              "type": "array",
-              "element": {
+          "DayNightColor": {
+            "type": "string"
+          },
+          "Day_nfLevel": {
+            "type": "number"
+          },
+          "DncThr": {
+            "type": "number"
+          },
+          "ElecLevel": {
+            "type": "number"
+          },
+          "EsShutter": {
+            "type": "string"
+          },
+          "ExposureParam": {
+            "type": "object",
+            "properties": {
+              "LeastTime": {
+                "type": "string"
+              },
+              "Level": {
+                "type": "number"
+              },
+              "MostTime": {
                 "type": "string"
               }
             }
-          }
-        }
-      },
-      "Snap.SnapConfig.[0]": {
-        "type": "object",
-        "properties": {
-          "IntervalSnap": {
+          },
+          "GainParam": {
             "type": "object",
             "properties": {
-              "EmailTime": {
+              "AutoGain": {
                 "type": "number"
               },
-              "FTPTime": {
-                "type": "number"
-              },
-              "StorageTime": {
+              "Gain": {
                 "type": "number"
               }
             }
           },
-          "SnapType": {
+          "IRCUTMode": {
             "type": "number"
+          },
+          "IrcutSwap": {
+            "type": "number"
+          },
+          "Night_nfLevel": {
+            "type": "number"
+          },
+          "PictureFlip": {
+            "type": "string"
+          },
+          "PictureMirror": {
+            "type": "string"
+          },
+          "RejectFlicker": {
+            "type": "number"
+          },
+          "WhiteBalance": {
+            "type": "string"
+          }
+        }
+      },
+      "Camera.ParamEx.[0]": {
+        "type": "object",
+        "properties": {
+          "AutomaticAdjustment": {
+            "type": "number"
+          },
+          "BroadTrends": {
+            "type": "object",
+            "properties": {
+              "AutoGain": {
+                "type": "number"
+              },
+              "Gain": {
+                "type": "number"
+              }
+            }
+          },
+          "CorridorMode": {
+            "type": "number"
+          },
+          "ExposureTime": {
+            "type": "string"
+          },
+          "LightRestrainLevel": {
+            "type": "number"
+          },
+          "LowLuxMode": {
+            "type": "number"
+          },
+          "PreventOverExpo": {
+            "type": "number"
+          },
+          "SoftPhotosensitivecontrol": {
+            "type": "number"
+          },
+          "Style": {
+            "type": "string"
+          }
+        }
+      },
+      "Detect.BlindDetect.[0]": {
+        "type": "object",
+        "properties": {
+          "Enable": {
+            "type": "boolean"
+          },
+          "EventHandler": {
+            "type": "object",
+            "properties": {
+              "AlarmInfo": {
+                "type": "string"
+              },
+              "AlarmOutEnable": {
+                "type": "boolean"
+              },
+              "AlarmOutLatch": {
+                "type": "number"
+              },
+              "AlarmOutMask": {
+                "type": "string"
+              },
+              "BeepEnable": {
+                "type": "boolean"
+              },
+              "EventLatch": {
+                "type": "number"
+              },
+              "FTPEnable": {
+                "type": "boolean"
+              },
+              "LogEnable": {
+                "type": "boolean"
+              },
+              "MailEnable": {
+                "type": "boolean"
+              },
+              "MatrixEnable": {
+                "type": "boolean"
+              },
+              "MatrixMask": {
+                "type": "string"
+              },
+              "MessageEnable": {
+                "type": "boolean"
+              },
+              "MsgtoNetEnable": {
+                "type": "boolean"
+              },
+              "MultimediaMsgEnable": {
+                "type": "boolean"
+              },
+              "PtzEnable": {
+                "type": "boolean"
+              },
+              "PtzLink": {
+                "type": "array",
+                "element": {
+                  "type": "array",
+                  "element": {
+                    "type": "string"
+                  }
+                }
+              },
+              "RecordEnable": {
+                "type": "boolean"
+              },
+              "RecordLatch": {
+                "type": "number"
+              },
+              "RecordMask": {
+                "type": "string"
+              },
+              "ShortMsgEnable": {
+                "type": "boolean"
+              },
+              "ShowInfo": {
+                "type": "boolean"
+              },
+              "ShowInfoMask": {
+                "type": "string"
+              },
+              "SnapEnable": {
+                "type": "boolean"
+              },
+              "SnapShotMask": {
+                "type": "string"
+              },
+              "TimeSection": {
+                "type": "array",
+                "element": {
+                  "type": "array",
+                  "element": {
+                    "type": "string"
+                  }
+                }
+              },
+              "TipEnable": {
+                "type": "boolean"
+              },
+              "TourEnable": {
+                "type": "boolean"
+              },
+              "TourMask": {
+                "type": "string"
+              },
+              "VoiceEnable": {
+                "type": "boolean"
+              },
+              "VoiceTipInterval": {
+                "type": "number"
+              },
+              "VoiceType": {
+                "type": "number"
+              }
+            }
+          },
+          "Level": {
+            "type": "number"
+          }
+        }
+      },
+      "Detect.HumanDetection.[0]": {
+        "type": "object",
+        "properties": {
+          "Enable": {
+            "type": "boolean"
+          },
+          "ObjectType": {
+            "type": "number"
+          },
+          "PedRule": {
+            "type": "array",
+            "element": {
+              "type": "object",
+              "properties": {
+                "Enable": {
+                  "type": "boolean"
+                },
+                "RuleLine": {
+                  "type": "object",
+                  "properties": {
+                    "AlarmDirect": {
+                      "type": "number"
+                    },
+                    "Pts": {
+                      "type": "object",
+                      "properties": {
+                        "StartX": {
+                          "type": "number"
+                        },
+                        "StartY": {
+                          "type": "number"
+                        },
+                        "StopX": {
+                          "type": "number"
+                        },
+                        "StopY": {
+                          "type": "number"
+                        }
+                      }
+                    }
+                  }
+                },
+                "RuleRegion": {
+                  "type": "object",
+                  "properties": {
+                    "AlarmDirect": {
+                      "type": "number"
+                    },
+                    "PtsNum": {
+                      "type": "number"
+                    }
+                  }
+                },
+                "RuleType": {
+                  "type": "number"
+                }
+              }
+            }
+          },
+          "Sensitivity": {
+            "type": "number"
+          },
+          "ShowRule": {
+            "type": "number"
+          },
+          "ShowTrack": {
+            "type": "number"
+          }
+        }
+      },
+      "Detect.LossDetect.[0]": {
+        "type": "object",
+        "properties": {
+          "Enable": {
+            "type": "boolean"
+          },
+          "EventHandler": {
+            "type": "object",
+            "properties": {
+              "AlarmInfo": {
+                "type": "string"
+              },
+              "AlarmOutEnable": {
+                "type": "boolean"
+              },
+              "AlarmOutLatch": {
+                "type": "number"
+              },
+              "AlarmOutMask": {
+                "type": "string"
+              },
+              "BeepEnable": {
+                "type": "boolean"
+              },
+              "EventLatch": {
+                "type": "number"
+              },
+              "FTPEnable": {
+                "type": "boolean"
+              },
+              "LogEnable": {
+                "type": "boolean"
+              },
+              "MailEnable": {
+                "type": "boolean"
+              },
+              "MatrixEnable": {
+                "type": "boolean"
+              },
+              "MatrixMask": {
+                "type": "string"
+              },
+              "MessageEnable": {
+                "type": "boolean"
+              },
+              "MsgtoNetEnable": {
+                "type": "boolean"
+              },
+              "MultimediaMsgEnable": {
+                "type": "boolean"
+              },
+              "PtzEnable": {
+                "type": "boolean"
+              },
+              "PtzLink": {
+                "type": "array",
+                "element": {
+                  "type": "array",
+                  "element": {
+                    "type": "string"
+                  }
+                }
+              },
+              "RecordEnable": {
+                "type": "boolean"
+              },
+              "RecordLatch": {
+                "type": "number"
+              },
+              "RecordMask": {
+                "type": "string"
+              },
+              "ShortMsgEnable": {
+                "type": "boolean"
+              },
+              "ShowInfo": {
+                "type": "boolean"
+              },
+              "ShowInfoMask": {
+                "type": "string"
+              },
+              "SnapEnable": {
+                "type": "boolean"
+              },
+              "SnapShotMask": {
+                "type": "string"
+              },
+              "TimeSection": {
+                "type": "array",
+                "element": {
+                  "type": "array",
+                  "element": {
+                    "type": "string"
+                  }
+                }
+              },
+              "TipEnable": {
+                "type": "boolean"
+              },
+              "TourEnable": {
+                "type": "boolean"
+              },
+              "TourMask": {
+                "type": "string"
+              },
+              "VoiceEnable": {
+                "type": "boolean"
+              },
+              "VoiceTipInterval": {
+                "type": "number"
+              },
+              "VoiceType": {
+                "type": "number"
+              }
+            }
           }
         }
       },
@@ -1317,447 +1939,820 @@ module.exports = Object.freeze({
           }
         }
       },
-      "Detect.HumanDetection.[0]": {
+      "General.General": {
         "type": "object",
         "properties": {
-          "Enable": {
-            "type": "boolean"
-          },
-          "ObjectType": {
+          "AutoLogout": {
             "type": "number"
           },
-          "PedRule": {
+          "FontSize": {
+            "type": "number"
+          },
+          "IranCalendarEnable": {
+            "type": "number"
+          },
+          "LocalNo": {
+            "type": "number"
+          },
+          "MachineName": {
+            "type": "string"
+          },
+          "OverWrite": {
+            "type": "string"
+          },
+          "ScreenAutoShutdown": {
+            "type": "number"
+          },
+          "ScreenSaveTime": {
+            "type": "number"
+          },
+          "VideoOutPut": {
+            "type": "string"
+          }
+        }
+      },
+      "General.Location": {
+        "type": "object",
+        "properties": {
+          "DSTEnd": {
+            "type": "object",
+            "properties": {
+              "Day": {
+                "type": "number"
+              },
+              "Hour": {
+                "type": "number"
+              },
+              "Minute": {
+                "type": "number"
+              },
+              "Month": {
+                "type": "number"
+              },
+              "Week": {
+                "type": "number"
+              },
+              "Year": {
+                "type": "number"
+              }
+            }
+          },
+          "DSTRule": {
+            "type": "string"
+          },
+          "DSTStart": {
+            "type": "object",
+            "properties": {
+              "Day": {
+                "type": "number"
+              },
+              "Hour": {
+                "type": "number"
+              },
+              "Minute": {
+                "type": "number"
+              },
+              "Month": {
+                "type": "number"
+              },
+              "Week": {
+                "type": "number"
+              },
+              "Year": {
+                "type": "number"
+              }
+            }
+          },
+          "DateFormat": {
+            "type": "string"
+          },
+          "DateSeparator": {
+            "type": "string"
+          },
+          "IranCalendar": {
+            "type": "number"
+          },
+          "Language": {
+            "type": "string"
+          },
+          "TimeFormat": {
+            "type": "string"
+          },
+          "VideoFormat": {
+            "type": "string"
+          },
+          "WorkDay": {
+            "type": "number"
+          }
+        }
+      },
+      "General.PwdSafety": {
+        "type": "object",
+        "properties": {
+          "PwdReset": {
             "type": "array",
             "element": {
               "type": "object",
               "properties": {
-                "Enable": {
-                  "type": "boolean"
+                "QuestionAnswer": {
+                  "type": "string"
                 },
-                "RuleLine": {
-                  "type": "object",
-                  "properties": {
-                    "AlarmDirect": {
-                      "type": "number"
-                    },
-                    "Pts": {
-                      "type": "object",
-                      "properties": {
-                        "StartX": {
-                          "type": "number"
-                        },
-                        "StartY": {
-                          "type": "number"
-                        },
-                        "StopX": {
-                          "type": "number"
-                        },
-                        "StopY": {
-                          "type": "number"
-                        }
-                      }
-                    }
-                  }
-                },
-                "RuleRegion": {
-                  "type": "object",
-                  "properties": {
-                    "AlarmDirect": {
-                      "type": "number"
-                    },
-                    "PtsNum": {
-                      "type": "number"
-                    }
-                  }
-                },
-                "RuleType": {
+                "QuestionIndex": {
                   "type": "number"
                 }
               }
             }
           },
-          "Sensitivity": {
-            "type": "number"
-          },
-          "ShowRule": {
-            "type": "number"
-          },
-          "ShowTrack": {
-            "type": "number"
-          }
-        }
-      },
-      "Detect.BlindDetect.[0]": {
-        "type": "object",
-        "properties": {
-          "Enable": {
-            "type": "boolean"
-          },
-          "EventHandler": {
-            "type": "object",
-            "properties": {
-              "AlarmInfo": {
-                "type": "string"
-              },
-              "AlarmOutEnable": {
-                "type": "boolean"
-              },
-              "AlarmOutLatch": {
-                "type": "number"
-              },
-              "AlarmOutMask": {
-                "type": "string"
-              },
-              "BeepEnable": {
-                "type": "boolean"
-              },
-              "EventLatch": {
-                "type": "number"
-              },
-              "FTPEnable": {
-                "type": "boolean"
-              },
-              "LogEnable": {
-                "type": "boolean"
-              },
-              "MailEnable": {
-                "type": "boolean"
-              },
-              "MatrixEnable": {
-                "type": "boolean"
-              },
-              "MatrixMask": {
-                "type": "string"
-              },
-              "MessageEnable": {
-                "type": "boolean"
-              },
-              "MsgtoNetEnable": {
-                "type": "boolean"
-              },
-              "MultimediaMsgEnable": {
-                "type": "boolean"
-              },
-              "PtzEnable": {
-                "type": "boolean"
-              },
-              "PtzLink": {
-                "type": "array",
-                "element": {
-                  "type": "array",
-                  "element": {
-                    "type": "string"
-                  }
-                }
-              },
-              "RecordEnable": {
-                "type": "boolean"
-              },
-              "RecordLatch": {
-                "type": "number"
-              },
-              "RecordMask": {
-                "type": "string"
-              },
-              "ShortMsgEnable": {
-                "type": "boolean"
-              },
-              "ShowInfo": {
-                "type": "boolean"
-              },
-              "ShowInfoMask": {
-                "type": "string"
-              },
-              "SnapEnable": {
-                "type": "boolean"
-              },
-              "SnapShotMask": {
-                "type": "string"
-              },
-              "TimeSection": {
-                "type": "array",
-                "element": {
-                  "type": "array",
-                  "element": {
-                    "type": "string"
-                  }
-                }
-              },
-              "TipEnable": {
-                "type": "boolean"
-              },
-              "TourEnable": {
-                "type": "boolean"
-              },
-              "TourMask": {
-                "type": "string"
-              },
-              "VoiceEnable": {
-                "type": "boolean"
-              },
-              "VoiceTipInterval": {
-                "type": "number"
-              },
-              "VoiceType": {
-                "type": "number"
-              }
-            }
-          },
-          "Level": {
-            "type": "number"
-          }
-        }
-      },
-      "Detect.LossDetect.[0]": {
-        "type": "object",
-        "properties": {
-          "Enable": {
-            "type": "boolean"
-          },
-          "EventHandler": {
-            "type": "object",
-            "properties": {
-              "AlarmInfo": {
-                "type": "string"
-              },
-              "AlarmOutEnable": {
-                "type": "boolean"
-              },
-              "AlarmOutLatch": {
-                "type": "number"
-              },
-              "AlarmOutMask": {
-                "type": "string"
-              },
-              "BeepEnable": {
-                "type": "boolean"
-              },
-              "EventLatch": {
-                "type": "number"
-              },
-              "FTPEnable": {
-                "type": "boolean"
-              },
-              "LogEnable": {
-                "type": "boolean"
-              },
-              "MailEnable": {
-                "type": "boolean"
-              },
-              "MatrixEnable": {
-                "type": "boolean"
-              },
-              "MatrixMask": {
-                "type": "string"
-              },
-              "MessageEnable": {
-                "type": "boolean"
-              },
-              "MsgtoNetEnable": {
-                "type": "boolean"
-              },
-              "MultimediaMsgEnable": {
-                "type": "boolean"
-              },
-              "PtzEnable": {
-                "type": "boolean"
-              },
-              "PtzLink": {
-                "type": "array",
-                "element": {
-                  "type": "array",
-                  "element": {
-                    "type": "string"
-                  }
-                }
-              },
-              "RecordEnable": {
-                "type": "boolean"
-              },
-              "RecordLatch": {
-                "type": "number"
-              },
-              "RecordMask": {
-                "type": "string"
-              },
-              "ShortMsgEnable": {
-                "type": "boolean"
-              },
-              "ShowInfo": {
-                "type": "boolean"
-              },
-              "ShowInfoMask": {
-                "type": "string"
-              },
-              "SnapEnable": {
-                "type": "boolean"
-              },
-              "SnapShotMask": {
-                "type": "string"
-              },
-              "TimeSection": {
-                "type": "array",
-                "element": {
-                  "type": "array",
-                  "element": {
-                    "type": "string"
-                  }
-                }
-              },
-              "TipEnable": {
-                "type": "boolean"
-              },
-              "TourEnable": {
-                "type": "boolean"
-              },
-              "TourMask": {
-                "type": "string"
-              },
-              "VoiceEnable": {
-                "type": "boolean"
-              },
-              "VoiceTipInterval": {
-                "type": "number"
-              },
-              "VoiceType": {
-                "type": "number"
-              }
-            }
-          }
-        }
-      },
-      "Alarm.LocalAlarm.[0]": {
-        "type": "object",
-        "properties": {
-          "Enable": {
-            "type": "boolean"
-          },
-          "EventHandler": {
-            "type": "object",
-            "properties": {
-              "AlarmInfo": {
-                "type": "string"
-              },
-              "AlarmOutEnable": {
-                "type": "boolean"
-              },
-              "AlarmOutLatch": {
-                "type": "number"
-              },
-              "AlarmOutMask": {
-                "type": "string"
-              },
-              "BeepEnable": {
-                "type": "boolean"
-              },
-              "EventLatch": {
-                "type": "number"
-              },
-              "FTPEnable": {
-                "type": "boolean"
-              },
-              "LogEnable": {
-                "type": "boolean"
-              },
-              "MailEnable": {
-                "type": "boolean"
-              },
-              "MatrixEnable": {
-                "type": "boolean"
-              },
-              "MatrixMask": {
-                "type": "string"
-              },
-              "MessageEnable": {
-                "type": "boolean"
-              },
-              "MsgtoNetEnable": {
-                "type": "boolean"
-              },
-              "MultimediaMsgEnable": {
-                "type": "boolean"
-              },
-              "PtzEnable": {
-                "type": "boolean"
-              },
-              "PtzLink": {
-                "type": "array",
-                "element": {
-                  "type": "array",
-                  "element": {
-                    "type": "string"
-                  }
-                }
-              },
-              "RecordEnable": {
-                "type": "boolean"
-              },
-              "RecordLatch": {
-                "type": "number"
-              },
-              "RecordMask": {
-                "type": "string"
-              },
-              "ShortMsgEnable": {
-                "type": "boolean"
-              },
-              "ShowInfo": {
-                "type": "boolean"
-              },
-              "ShowInfoMask": {
-                "type": "string"
-              },
-              "SnapEnable": {
-                "type": "boolean"
-              },
-              "SnapShotMask": {
-                "type": "string"
-              },
-              "TimeSection": {
-                "type": "array",
-                "element": {
-                  "type": "array",
-                  "element": {
-                    "type": "string"
-                  }
-                }
-              },
-              "TipEnable": {
-                "type": "boolean"
-              },
-              "TourEnable": {
-                "type": "boolean"
-              },
-              "TourMask": {
-                "type": "string"
-              },
-              "VoiceEnable": {
-                "type": "boolean"
-              },
-              "VoiceTipInterval": {
-                "type": "number"
-              },
-              "VoiceType": {
-                "type": "number"
-              }
-            }
-          },
-          "SensorType": {
+          "SecurityEmail": {
             "type": "string"
+          },
+          "TipPageHide": {
+            "type": "boolean"
           }
         }
       },
-      "Alarm.AlarmOut": {
+      "NetWork.AlarmServer": {
         "type": "array",
         "element": {
           "type": "object",
           "properties": {
-            "AlarmOutStatus": {
+            "Alarm": {
+              "type": "boolean"
+            },
+            "Enable": {
+              "type": "boolean"
+            },
+            "Log": {
+              "type": "boolean"
+            },
+            "Protocol": {
               "type": "string"
             },
-            "AlarmOutType": {
+            "Server": {
+              "type": "object",
+              "properties": {
+                "Address": {
+                  "type": "string"
+                },
+                "Anonymity": {
+                  "type": "boolean"
+                },
+                "Name": {
+                  "type": "string"
+                },
+                "Password": {
+                  "type": "string"
+                },
+                "Port": {
+                  "type": "number"
+                },
+                "UserName": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "NetWork.DAS": {
+        "type": "object",
+        "properties": {
+          "DeviceID": {
+            "type": "string"
+          },
+          "Enable": {
+            "type": "boolean"
+          },
+          "Password": {
+            "type": "string"
+          },
+          "Port": {
+            "type": "number"
+          },
+          "ServerAddr": {
+            "type": "string"
+          },
+          "UserName": {
+            "type": "string"
+          }
+        }
+      },
+      "NetWork.IPAdaptive": {
+        "type": "object",
+        "properties": {
+          "IPAdaptive": {
+            "type": "boolean"
+          }
+        }
+      },
+      "NetWork.Nat": {
+        "type": "object",
+        "properties": {
+          "Addr": {
+            "type": "string"
+          },
+          "DnsServer1": {
+            "type": "string"
+          },
+          "DnsServer2": {
+            "type": "string"
+          },
+          "NatEnable": {
+            "type": "boolean"
+          },
+          "Port": {
+            "type": "number"
+          },
+          "XMeyeMTU": {
+            "type": "number"
+          }
+        }
+      },
+      "NetWork.NetARSP": {
+        "type": "array",
+        "element": {
+          "type": "object",
+          "properties": {
+            "ARSPKey": {
+              "type": "string"
+            },
+            "Enable": {
+              "type": "boolean"
+            },
+            "HttpPort": {
+              "type": "number"
+            },
+            "Interval": {
+              "type": "number"
+            },
+            "Server": {
+              "type": "object",
+              "properties": {
+                "Address": {
+                  "type": "string"
+                },
+                "Anonymity": {
+                  "type": "boolean"
+                },
+                "Name": {
+                  "type": "string"
+                },
+                "Password": {
+                  "type": "string"
+                },
+                "Port": {
+                  "type": "number"
+                },
+                "UserName": {
+                  "type": "string"
+                }
+              }
+            },
+            "URL": {
               "type": "string"
             }
+          }
+        }
+      },
+      "NetWork.NetCommon": {
+        "type": "object",
+        "properties": {
+          "GateWay": {
+            "type": "string"
+          },
+          "HostIP": {
+            "type": "string"
+          },
+          "HostName": {
+            "type": "string"
+          },
+          "HttpPort": {
+            "type": "number"
+          },
+          "MAC": {
+            "type": "string"
+          },
+          "MaxBps": {
+            "type": "number"
+          },
+          "MonMode": {
+            "type": "string"
+          },
+          "SSLPort": {
+            "type": "number"
+          },
+          "Submask": {
+            "type": "string"
+          },
+          "TCPMaxConn": {
+            "type": "number"
+          },
+          "TCPPort": {
+            "type": "number"
+          },
+          "TransferPlan": {
+            "type": "string"
+          },
+          "UDPPort": {
+            "type": "number"
+          },
+          "UseHSDownLoad": {
+            "type": "boolean"
+          }
+        }
+      },
+      "NetWork.NetDDNS": {
+        "type": "array",
+        "element": {
+          "type": "object",
+          "properties": {
+            "DDNSKey": {
+              "type": "string"
+            },
+            "Enable": {
+              "type": "boolean"
+            },
+            "HostName": {
+              "type": "string"
+            },
+            "Online": {
+              "type": "boolean"
+            },
+            "Server": {
+              "type": "object",
+              "properties": {
+                "Address": {
+                  "type": "string"
+                },
+                "Anonymity": {
+                  "type": "boolean"
+                },
+                "Name": {
+                  "type": "string"
+                },
+                "Password": {
+                  "type": "string"
+                },
+                "Port": {
+                  "type": "number"
+                },
+                "UserName": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "NetWork.NetDHCP": {
+        "type": "array",
+        "element": {
+          "type": "object",
+          "properties": {
+            "Enable": {
+              "type": "boolean"
+            },
+            "Interface": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "NetWork.NetDNS": {
+        "type": "object",
+        "properties": {
+          "Address": {
+            "type": "string"
+          },
+          "SpareAddress": {
+            "type": "string"
+          }
+        }
+      },
+      "NetWork.NetEmail": {
+        "type": "object",
+        "properties": {
+          "Enable": {
+            "type": "boolean"
+          },
+          "MailServer": {
+            "type": "object",
+            "properties": {
+              "Address": {
+                "type": "string"
+              },
+              "Anonymity": {
+                "type": "boolean"
+              },
+              "Name": {
+                "type": "string"
+              },
+              "Password": {
+                "type": "string"
+              },
+              "Port": {
+                "type": "number"
+              },
+              "UserName": {
+                "type": "string"
+              }
+            }
+          },
+          "Port": {
+            "type": "number"
+          },
+          "Recievers": {
+            "type": "array",
+            "element": {
+              "type": "string"
+            }
+          },
+          "Schedule": {
+            "type": "array",
+            "element": {
+              "type": "string"
+            }
+          },
+          "SendAddr": {
+            "type": "string"
+          },
+          "Title": {
+            "type": "string"
+          },
+          "UseSSL": {
+            "type": "number"
+          }
+        }
+      },
+      "NetWork.NetFTP": {
+        "type": "object",
+        "properties": {
+          "Directory": {
+            "type": "string"
+          },
+          "Enable": {
+            "type": "boolean"
+          },
+          "MaxFileLen": {
+            "type": "number"
+          },
+          "Server": {
+            "type": "object",
+            "properties": {
+              "Address": {
+                "type": "string"
+              },
+              "Anonymity": {
+                "type": "boolean"
+              },
+              "Name": {
+                "type": "string"
+              },
+              "Password": {
+                "type": "string"
+              },
+              "Port": {
+                "type": "number"
+              },
+              "UserName": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "NetWork.NetIPFilter": {
+        "type": "object",
+        "properties": {
+          "Banned": {
+            "type": "array",
+            "element": {
+              "type": "string"
+            }
+          },
+          "Enable": {
+            "type": "boolean"
+          },
+          "Trusted": {
+            "type": "array",
+            "element": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "NetWork.NetNTP": {
+        "type": "object",
+        "properties": {
+          "Enable": {
+            "type": "boolean"
+          },
+          "Server": {
+            "type": "object",
+            "properties": {
+              "Address": {
+                "type": "string"
+              },
+              "Anonymity": {
+                "type": "boolean"
+              },
+              "Name": {
+                "type": "string"
+              },
+              "Password": {
+                "type": "string"
+              },
+              "Port": {
+                "type": "number"
+              },
+              "UserName": {
+                "type": "string"
+              }
+            }
+          },
+          "TimeZone": {
+            "type": "number"
+          },
+          "UpdatePeriod": {
+            "type": "number"
+          }
+        }
+      },
+      "NetWork.OnvifPwdCheckout": {
+        "type": "object",
+        "properties": {
+          "Enable": {
+            "type": "boolean"
+          }
+        }
+      },
+      "NetWork.PMS": {
+        "type": "object",
+        "properties": {
+          "BoxID": {
+            "type": "string"
+          },
+          "Enable": {
+            "type": "boolean"
+          },
+          "Port": {
+            "type": "number"
+          },
+          "PushInterval": {
+            "type": "number"
+          },
+          "ServName": {
+            "type": "string"
+          }
+        }
+      },
+      "NetWork.RTSP": {
+        "type": "object",
+        "properties": {
+          "Client": {
+            "type": "object",
+            "properties": {
+              "Address": {
+                "type": "string"
+              },
+              "Anonymity": {
+                "type": "boolean"
+              },
+              "Name": {
+                "type": "string"
+              },
+              "Password": {
+                "type": "string"
+              },
+              "Port": {
+                "type": "number"
+              },
+              "UserName": {
+                "type": "string"
+              }
+            }
+          },
+          "IsClient": {
+            "type": "boolean"
+          },
+          "IsServer": {
+            "type": "boolean"
+          },
+          "Server": {
+            "type": "object",
+            "properties": {
+              "Address": {
+                "type": "string"
+              },
+              "Anonymity": {
+                "type": "boolean"
+              },
+              "Name": {
+                "type": "string"
+              },
+              "Password": {
+                "type": "string"
+              },
+              "Port": {
+                "type": "number"
+              },
+              "UserName": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "NetWork.Upnp": {
+        "type": "object",
+        "properties": {
+          "Enable": {
+            "type": "boolean"
+          },
+          "HTTPPort": {
+            "type": "number"
+          },
+          "MediaPort": {
+            "type": "number"
+          },
+          "MobilePort": {
+            "type": "number"
+          },
+          "State": {
+            "type": "boolean"
+          }
+        }
+      },
+      "OEMcfg.Correspondent": {
+        "type": "object",
+        "properties": {
+          "BrandInfo": {
+            "type": "string"
+          },
+          "FirmwareVersion": {
+            "type": "string"
+          },
+          "HardwareId": {
+            "type": "string"
+          },
+          "Port": {
+            "type": "number"
+          },
+          "RevSpace": {
+            "type": "string"
+          },
+          "Scope": {
+            "type": "array",
+            "element": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "PMS.num": {
+        "type": "object",
+        "properties": {
+          "AbilityPram": {
+            "type": "string"
+          }
+        }
+      },
+      "Record.[0]": {
+        "type": "object",
+        "properties": {
+          "Mask": {
+            "type": "array",
+            "element": {
+              "type": "array",
+              "element": {
+                "type": "string"
+              }
+            }
+          },
+          "PacketLength": {
+            "type": "number"
+          },
+          "PreRecord": {
+            "type": "number"
+          },
+          "RecordMode": {
+            "type": "string"
+          },
+          "Redundancy": {
+            "type": "boolean"
+          },
+          "TimeSection": {
+            "type": "array",
+            "element": {
+              "type": "array",
+              "element": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "Simplify.Encode": {
+        "type": "array",
+        "element": {
+          "type": "object",
+          "properties": {
+            "ExtraFormat": {
+              "type": "object",
+              "properties": {
+                "AudioEnable": {
+                  "type": "boolean"
+                },
+                "Video": {
+                  "type": "object",
+                  "properties": {
+                    "BitRate": {
+                      "type": "number"
+                    },
+                    "BitRateControl": {
+                      "type": "string"
+                    },
+                    "Compression": {
+                      "type": "string"
+                    },
+                    "FPS": {
+                      "type": "number"
+                    },
+                    "GOP": {
+                      "type": "number"
+                    },
+                    "Quality": {
+                      "type": "number"
+                    },
+                    "Resolution": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "VideoEnable": {
+                  "type": "boolean"
+                }
+              }
+            },
+            "MainFormat": {
+              "type": "object",
+              "properties": {
+                "AudioEnable": {
+                  "type": "boolean"
+                },
+                "Video": {
+                  "type": "object",
+                  "properties": {
+                    "BitRate": {
+                      "type": "number"
+                    },
+                    "BitRateControl": {
+                      "type": "string"
+                    },
+                    "Compression": {
+                      "type": "string"
+                    },
+                    "FPS": {
+                      "type": "number"
+                    },
+                    "GOP": {
+                      "type": "number"
+                    },
+                    "Quality": {
+                      "type": "number"
+                    },
+                    "Resolution": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "VideoEnable": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        }
+      },
+      "Snap.SnapConfig.[0]": {
+        "type": "object",
+        "properties": {
+          "IntervalSnap": {
+            "type": "object",
+            "properties": {
+              "EmailTime": {
+                "type": "number"
+              },
+              "FTPTime": {
+                "type": "number"
+              },
+              "StorageTime": {
+                "type": "number"
+              }
+            }
+          },
+          "SnapType": {
+            "type": "number"
           }
         }
       },
@@ -1873,790 +2868,20 @@ module.exports = Object.freeze({
           }
         }
       },
-      "General.General": {
+      "Storage.StoragePosition": {
         "type": "object",
         "properties": {
-          "AutoLogout": {
-            "type": "number"
-          },
-          "FontSize": {
-            "type": "number"
-          },
-          "IranCalendarEnable": {
-            "type": "number"
-          },
-          "LocalNo": {
-            "type": "number"
-          },
-          "MachineName": {
-            "type": "string"
-          },
-          "OverWrite": {
-            "type": "string"
-          },
-          "ScreenAutoShutdown": {
-            "type": "number"
-          },
-          "ScreenSaveTime": {
-            "type": "number"
-          },
-          "VideoOutPut": {
-            "type": "string"
-          }
-        }
-      },
-      "General.Location": {
-        "type": "object",
-        "properties": {
-          "DSTEnd": {
-            "type": "object",
-            "properties": {
-              "Day": {
-                "type": "number"
-              },
-              "Hour": {
-                "type": "number"
-              },
-              "Minute": {
-                "type": "number"
-              },
-              "Month": {
-                "type": "number"
-              },
-              "Week": {
-                "type": "number"
-              },
-              "Year": {
-                "type": "number"
-              }
-            }
-          },
-          "DSTRule": {
-            "type": "string"
-          },
-          "DSTStart": {
-            "type": "object",
-            "properties": {
-              "Day": {
-                "type": "number"
-              },
-              "Hour": {
-                "type": "number"
-              },
-              "Minute": {
-                "type": "number"
-              },
-              "Month": {
-                "type": "number"
-              },
-              "Week": {
-                "type": "number"
-              },
-              "Year": {
-                "type": "number"
-              }
-            }
-          },
-          "DateFormat": {
-            "type": "string"
-          },
-          "DateSeparator": {
-            "type": "string"
-          },
-          "IranCalendar": {
-            "type": "number"
-          },
-          "Language": {
-            "type": "string"
-          },
-          "TimeFormat": {
-            "type": "string"
-          },
-          "VideoFormat": {
-            "type": "string"
-          },
-          "WorkDay": {
-            "type": "number"
-          }
-        }
-      },
-      "NetWork.NetNTP": {
-        "type": "object",
-        "properties": {
-          "Enable": {
+          "DVD": {
             "type": "boolean"
           },
-          "Server": {
-            "type": "object",
-            "properties": {
-              "Address": {
-                "type": "string"
-              },
-              "Anonymity": {
-                "type": "boolean"
-              },
-              "Name": {
-                "type": "string"
-              },
-              "Password": {
-                "type": "string"
-              },
-              "Port": {
-                "type": "number"
-              },
-              "UserName": {
-                "type": "string"
-              }
-            }
-          },
-          "TimeZone": {
-            "type": "number"
-          },
-          "UpdatePeriod": {
-            "type": "number"
-          }
-        }
-      },
-      "System.TimeZone": {
-        "type": "object",
-        "properties": {
-          "FirstUserTimeZone": {
-            "type": "number"
-          },
-          "timeMin": {
-            "type": "number"
-          }
-        }
-      },
-      "AVEnc.EncodeStaticParam": {
-        "type": "array",
-        "element": {
-          "type": "object",
-          "properties": {
-            "Level": {
-              "type": "number"
-            },
-            "Profile": {
-              "type": "number"
-            }
-          }
-        }
-      },
-      "Simplify.Encode": {
-        "type": "array",
-        "element": {
-          "type": "object",
-          "properties": {
-            "ExtraFormat": {
-              "type": "object",
-              "properties": {
-                "AudioEnable": {
-                  "type": "boolean"
-                },
-                "Video": {
-                  "type": "object",
-                  "properties": {
-                    "BitRate": {
-                      "type": "number"
-                    },
-                    "BitRateControl": {
-                      "type": "string"
-                    },
-                    "Compression": {
-                      "type": "string"
-                    },
-                    "FPS": {
-                      "type": "number"
-                    },
-                    "GOP": {
-                      "type": "number"
-                    },
-                    "Quality": {
-                      "type": "number"
-                    },
-                    "Resolution": {
-                      "type": "string"
-                    }
-                  }
-                },
-                "VideoEnable": {
-                  "type": "boolean"
-                }
-              }
-            },
-            "MainFormat": {
-              "type": "object",
-              "properties": {
-                "AudioEnable": {
-                  "type": "boolean"
-                },
-                "Video": {
-                  "type": "object",
-                  "properties": {
-                    "BitRate": {
-                      "type": "number"
-                    },
-                    "BitRateControl": {
-                      "type": "string"
-                    },
-                    "Compression": {
-                      "type": "string"
-                    },
-                    "FPS": {
-                      "type": "number"
-                    },
-                    "GOP": {
-                      "type": "number"
-                    },
-                    "Quality": {
-                      "type": "number"
-                    },
-                    "Resolution": {
-                      "type": "string"
-                    }
-                  }
-                },
-                "VideoEnable": {
-                  "type": "boolean"
-                }
-              }
-            }
-          }
-        }
-      },
-      "AVEnc.SmartH264V2.[0]": {
-        "type": "object",
-        "properties": {
-          "Smart264PlusV2": {
-            "type": "array",
-            "element": {
-              "type": "object",
-              "properties": {
-                "SmartH264Plus": {
-                  "type": "number"
-                }
-              }
-            }
-          },
-          "Smart264V2": {
-            "type": "array",
-            "element": {
-              "type": "object",
-              "properties": {
-                "SmartH264": {
-                  "type": "number"
-                }
-              }
-            }
-          }
-        }
-      },
-      "NetWork.NetCommon": {
-        "type": "object",
-        "properties": {
-          "GateWay": {
-            "type": "string"
-          },
-          "HostIP": {
-            "type": "string"
-          },
-          "HostName": {
-            "type": "string"
-          },
-          "HttpPort": {
-            "type": "number"
-          },
-          "MAC": {
-            "type": "string"
-          },
-          "MaxBps": {
-            "type": "number"
-          },
-          "MonMode": {
-            "type": "string"
-          },
-          "SSLPort": {
-            "type": "number"
-          },
-          "Submask": {
-            "type": "string"
-          },
-          "TCPMaxConn": {
-            "type": "number"
-          },
-          "TCPPort": {
-            "type": "number"
-          },
-          "TransferPlan": {
-            "type": "string"
-          },
-          "UDPPort": {
-            "type": "number"
-          },
-          "UseHSDownLoad": {
-            "type": "boolean"
-          }
-        }
-      },
-      "NetWork.NetDHCP": {
-        "type": "array",
-        "element": {
-          "type": "object",
-          "properties": {
-            "Enable": {
-              "type": "boolean"
-            },
-            "Interface": {
-              "type": "string"
-            }
-          }
-        }
-      },
-      "NetWork.NetDNS": {
-        "type": "object",
-        "properties": {
-          "Address": {
-            "type": "string"
-          },
-          "SpareAddress": {
-            "type": "string"
-          }
-        }
-      },
-      "NetWork.IPAdaptive": {
-        "type": "object",
-        "properties": {
-          "IPAdaptive": {
-            "type": "boolean"
-          }
-        }
-      },
-      "NetWork.OnvifPwdCheckout": {
-        "type": "object",
-        "properties": {
-          "Enable": {
-            "type": "boolean"
-          }
-        }
-      },
-      "OEMcfg.Correspondent": {
-        "type": "object",
-        "properties": {
-          "BrandInfo": {
-            "type": "string"
-          },
-          "FirmwareVersion": {
-            "type": "string"
-          },
-          "HardwareId": {
-            "type": "string"
-          },
-          "Port": {
-            "type": "number"
-          },
-          "RevSpace": {
-            "type": "string"
-          },
-          "Scope": {
-            "type": "array",
-            "element": {
-              "type": "string"
-            }
-          }
-        }
-      },
-      "NetWork.RTSP": {
-        "type": "object",
-        "properties": {
-          "Client": {
-            "type": "object",
-            "properties": {
-              "Address": {
-                "type": "string"
-              },
-              "Anonymity": {
-                "type": "boolean"
-              },
-              "Name": {
-                "type": "string"
-              },
-              "Password": {
-                "type": "string"
-              },
-              "Port": {
-                "type": "number"
-              },
-              "UserName": {
-                "type": "string"
-              }
-            }
-          },
-          "IsClient": {
+          "SATA": {
             "type": "boolean"
           },
-          "IsServer": {
+          "SD": {
             "type": "boolean"
           },
-          "Server": {
-            "type": "object",
-            "properties": {
-              "Address": {
-                "type": "string"
-              },
-              "Anonymity": {
-                "type": "boolean"
-              },
-              "Name": {
-                "type": "string"
-              },
-              "Password": {
-                "type": "string"
-              },
-              "Port": {
-                "type": "number"
-              },
-              "UserName": {
-                "type": "string"
-              }
-            }
-          }
-        }
-      },
-      "NetWork.NetIPFilter": {
-        "type": "object",
-        "properties": {
-          "Banned": {
-            "type": "array",
-            "element": {
-              "type": "string"
-            }
-          },
-          "Enable": {
+          "USB": {
             "type": "boolean"
-          },
-          "Trusted": {
-            "type": "array",
-            "element": {
-              "type": "string"
-            }
-          }
-        }
-      },
-      "NetWork.NetDDNS": {
-        "type": "array",
-        "element": {
-          "type": "object",
-          "properties": {
-            "DDNSKey": {
-              "type": "string"
-            },
-            "Enable": {
-              "type": "boolean"
-            },
-            "HostName": {
-              "type": "string"
-            },
-            "Online": {
-              "type": "boolean"
-            },
-            "Server": {
-              "type": "object",
-              "properties": {
-                "Address": {
-                  "type": "string"
-                },
-                "Anonymity": {
-                  "type": "boolean"
-                },
-                "Name": {
-                  "type": "string"
-                },
-                "Password": {
-                  "type": "string"
-                },
-                "Port": {
-                  "type": "number"
-                },
-                "UserName": {
-                  "type": "string"
-                }
-              }
-            }
-          }
-        }
-      },
-      "NetWork.NetEmail": {
-        "type": "object",
-        "properties": {
-          "Enable": {
-            "type": "boolean"
-          },
-          "MailServer": {
-            "type": "object",
-            "properties": {
-              "Address": {
-                "type": "string"
-              },
-              "Anonymity": {
-                "type": "boolean"
-              },
-              "Name": {
-                "type": "string"
-              },
-              "Password": {
-                "type": "string"
-              },
-              "Port": {
-                "type": "number"
-              },
-              "UserName": {
-                "type": "string"
-              }
-            }
-          },
-          "Port": {
-            "type": "number"
-          },
-          "Recievers": {
-            "type": "array",
-            "element": {
-              "type": "string"
-            }
-          },
-          "Schedule": {
-            "type": "array",
-            "element": {
-              "type": "string"
-            }
-          },
-          "SendAddr": {
-            "type": "string"
-          },
-          "Title": {
-            "type": "string"
-          },
-          "UseSSL": {
-            "type": "number"
-          }
-        }
-      },
-      "NetWork.NetARSP": {
-        "type": "array",
-        "element": {
-          "type": "object",
-          "properties": {
-            "ARSPKey": {
-              "type": "string"
-            },
-            "Enable": {
-              "type": "boolean"
-            },
-            "HttpPort": {
-              "type": "number"
-            },
-            "Interval": {
-              "type": "number"
-            },
-            "Server": {
-              "type": "object",
-              "properties": {
-                "Address": {
-                  "type": "string"
-                },
-                "Anonymity": {
-                  "type": "boolean"
-                },
-                "Name": {
-                  "type": "string"
-                },
-                "Password": {
-                  "type": "string"
-                },
-                "Port": {
-                  "type": "number"
-                },
-                "UserName": {
-                  "type": "string"
-                }
-              }
-            },
-            "URL": {
-              "type": "string"
-            }
-          }
-        }
-      },
-      "NetWork.Upnp": {
-        "type": "object",
-        "properties": {
-          "Enable": {
-            "type": "boolean"
-          },
-          "HTTPPort": {
-            "type": "number"
-          },
-          "MediaPort": {
-            "type": "number"
-          },
-          "MobilePort": {
-            "type": "number"
-          },
-          "State": {
-            "type": "boolean"
-          }
-        }
-      },
-      "NetWork.NetFTP": {
-        "type": "object",
-        "properties": {
-          "Directory": {
-            "type": "string"
-          },
-          "Enable": {
-            "type": "boolean"
-          },
-          "MaxFileLen": {
-            "type": "number"
-          },
-          "Server": {
-            "type": "object",
-            "properties": {
-              "Address": {
-                "type": "string"
-              },
-              "Anonymity": {
-                "type": "boolean"
-              },
-              "Name": {
-                "type": "string"
-              },
-              "Password": {
-                "type": "string"
-              },
-              "Port": {
-                "type": "number"
-              },
-              "UserName": {
-                "type": "string"
-              }
-            }
-          }
-        }
-      },
-      "NetWork.AlarmServer": {
-        "type": "array",
-        "element": {
-          "type": "object",
-          "properties": {
-            "Alarm": {
-              "type": "boolean"
-            },
-            "Enable": {
-              "type": "boolean"
-            },
-            "Log": {
-              "type": "boolean"
-            },
-            "Protocol": {
-              "type": "string"
-            },
-            "Server": {
-              "type": "object",
-              "properties": {
-                "Address": {
-                  "type": "string"
-                },
-                "Anonymity": {
-                  "type": "boolean"
-                },
-                "Name": {
-                  "type": "string"
-                },
-                "Password": {
-                  "type": "string"
-                },
-                "Port": {
-                  "type": "number"
-                },
-                "UserName": {
-                  "type": "string"
-                }
-              }
-            }
-          }
-        }
-      },
-      "NetWork.DAS": {
-        "type": "object",
-        "properties": {
-          "DeviceID": {
-            "type": "string"
-          },
-          "Enable": {
-            "type": "boolean"
-          },
-          "Password": {
-            "type": "string"
-          },
-          "Port": {
-            "type": "number"
-          },
-          "ServerAddr": {
-            "type": "string"
-          },
-          "UserName": {
-            "type": "string"
-          }
-        }
-      },
-      "NetWork.Nat": {
-        "type": "object",
-        "properties": {
-          "Addr": {
-            "type": "string"
-          },
-          "DnsServer1": {
-            "type": "string"
-          },
-          "DnsServer2": {
-            "type": "string"
-          },
-          "NatEnable": {
-            "type": "boolean"
-          },
-          "Port": {
-            "type": "number"
-          },
-          "XMeyeMTU": {
-            "type": "number"
-          }
-        }
-      },
-      "NetWork.PMS": {
-        "type": "object",
-        "properties": {
-          "BoxID": {
-            "type": "string"
-          },
-          "Enable": {
-            "type": "boolean"
-          },
-          "Port": {
-            "type": "number"
-          },
-          "PushInterval": {
-            "type": "number"
-          },
-          "ServName": {
-            "type": "string"
-          }
-        }
-      },
-      "PMS.num": {
-        "type": "object",
-        "properties": {
-          "AbilityPram": {
-            "type": "string"
           }
         }
       },
@@ -2700,28 +2925,58 @@ module.exports = Object.freeze({
           }
         }
       },
-      "General.PwdSafety": {
+      "System.TimeZone": {
         "type": "object",
         "properties": {
-          "PwdReset": {
-            "type": "array",
-            "element": {
-              "type": "object",
-              "properties": {
-                "QuestionAnswer": {
-                  "type": "string"
-                },
-                "QuestionIndex": {
-                  "type": "number"
-                }
-              }
-            }
+          "FirstUserTimeZone": {
+            "type": "number"
           },
-          "SecurityEmail": {
-            "type": "string"
-          },
-          "TipPageHide": {
+          "timeMin": {
+            "type": "number"
+          }
+        }
+      },
+      "fVideo.GUISet": {
+        "type": "object",
+        "properties": {
+          "AlarmStateEnable": {
             "type": "boolean"
+          },
+          "CarInfo": {
+            "type": "boolean"
+          },
+          "ChanStateBitRateEnable": {
+            "type": "boolean"
+          },
+          "ChanStateLckEnable": {
+            "type": "boolean"
+          },
+          "ChanStateMtdEnable": {
+            "type": "boolean"
+          },
+          "ChanStateVlsEnable": {
+            "type": "boolean"
+          },
+          "ChannelTitleEnable": {
+            "type": "boolean"
+          },
+          "Deflick": {
+            "type": "boolean"
+          },
+          "GPSInfo": {
+            "type": "boolean"
+          },
+          "RecordStateEnable": {
+            "type": "boolean"
+          },
+          "RemoteEnable": {
+            "type": "boolean"
+          },
+          "TimeTitleEnable": {
+            "type": "boolean"
+          },
+          "WindowAlpha": {
+            "type": "number"
           }
         }
       }
@@ -2734,10 +2989,24 @@ module.exports = Object.freeze({
     "id": 1045
   },
   "CONFIG_CHANNELTITLE_SET": {
-    "id": 1046
+    "id": 1046,
+    "commands": {
+      "ChannelTitle": {
+        "type": "array",
+        "element": {
+          "type": "string"
+        }
+      }
+    }
   },
   "CONFIG_CHANNELTITLE_SET_RSP": {
-    "id": 1047
+    "id": 1047,
+    "type": "object",
+    "properties": {
+      "Name": {
+        "type": "string"
+      }
+    }
   },
   "CONFIG_CHANNELTITLE_GET": {
     "id": 1048,
@@ -2762,7 +3031,13 @@ module.exports = Object.freeze({
     "id": 1050
   },
   "CONFIG_CHANNELTITLE_DOT_SET_RSP": {
-    "id": 1051
+    "id": 1051,
+    "type": "object",
+    "properties": {
+      "Name": {
+        "type": "string"
+      }
+    }
   },
   "SYSTEM_DEBUG_REQ": {
     "id": 1052
@@ -2773,16 +3048,28 @@ module.exports = Object.freeze({
   "ABILITY_GET": {
     "id": 1360,
     "commands": {
-      "SystemFunction": {
+      "AHDEncodeL": {
         "type": "null"
       },
-      "DimenCode": {
+      "BlindCapability": {
         "type": "null"
       },
       "Camera": {
         "type": "null"
       },
-      "SupportExtRecord": {
+      "DDNSService": {
+        "type": "null"
+      },
+      "DimenCode": {
+        "type": "null"
+      },
+      "Encode264ability": {
+        "type": "null"
+      },
+      "EncodeCapability": {
+        "type": "null"
+      },
+      "HumanRuleLimit": {
         "type": "null"
       },
       "MaxPreRecord": {
@@ -2791,37 +3078,25 @@ module.exports = Object.freeze({
       "MotionArea": {
         "type": "null"
       },
-      "HumanRuleLimit": {
-        "type": "null"
-      },
-      "BlindCapability": {
-        "type": "null"
-      },
       "MultiLanguage": {
         "type": "null"
       },
       "MultiVstd": {
         "type": "null"
       },
-      "VencMaxFps": {
-        "type": "null"
-      },
-      "EncodeCapability": {
-        "type": "null"
-      },
-      "Encode264ability": {
-        "type": "null"
-      },
-      "AHDEncodeL": {
-        "type": "null"
-      },
       "NetOrder": {
         "type": "null"
       },
-      "DDNSService": {
+      "QuestionDelivery": {
         "type": "null"
       },
-      "QuestionDelivery": {
+      "SupportExtRecord": {
+        "type": "null"
+      },
+      "SystemFunction": {
+        "type": "null"
+      },
+      "VencMaxFps": {
         "type": "null"
       }
     }
@@ -2829,6 +3104,265 @@ module.exports = Object.freeze({
   "ABILITY_GET_RSP": {
     "id": 1361,
     "commands": {
+      "AHDEncodeL": {
+        "type": "object",
+        "properties": {
+          "AHDLMask": {
+            "type": "string"
+          }
+        }
+      },
+      "BlindCapability": {
+        "type": "object",
+        "properties": {
+          "BlindCoverNum": {
+            "type": "number"
+          }
+        }
+      },
+      "Camera": {
+        "type": "object",
+        "properties": {
+          "Count": {
+            "type": "number"
+          },
+          "ElecLevel": {
+            "type": "number"
+          },
+          "IsFishLens": {
+            "type": "number"
+          },
+          "Luminance": {
+            "type": "number"
+          },
+          "Speeds": {
+            "type": "array",
+            "element": {
+              "type": "string"
+            }
+          },
+          "Status": {
+            "type": "number"
+          },
+          "SupportIntellDoubleLight": {
+            "type": "number"
+          },
+          "SupportPreventOverExpo": {
+            "type": "number"
+          },
+          "Version": {
+            "type": "string"
+          }
+        }
+      },
+      "DDNSService": {
+        "type": "array",
+        "element": {
+          "type": "string"
+        }
+      },
+      "DimenCode": {
+        "type": "object",
+        "properties": {
+          "SN": {
+            "type": "object",
+            "properties": {
+              "code": {
+                "type": "string"
+              },
+              "size": {
+                "type": "number"
+              }
+            }
+          },
+          "appAndroid": {
+            "type": "object",
+            "properties": {
+              "code": {
+                "type": "string"
+              },
+              "size": {
+                "type": "number"
+              }
+            }
+          },
+          "appIOS": {
+            "type": "object",
+            "properties": {
+              "code": {
+                "type": "string"
+              },
+              "size": {
+                "type": "number"
+              }
+            }
+          },
+          "otherInfo": {
+            "type": "object",
+            "properties": {
+              "code": {
+                "type": "string"
+              },
+              "size": {
+                "type": "number"
+              }
+            }
+          }
+        }
+      },
+      "Encode264ability": {
+        "type": "object",
+        "properties": {
+          "uIntel264": {
+            "type": "array",
+            "element": {
+              "type": "string"
+            }
+          },
+          "uIntel264Plus": {
+            "type": "array",
+            "element": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "EncodeCapability": {
+        "type": "object",
+        "properties": {
+          "ChannelMaxSetSync": {
+            "type": "number"
+          },
+          "CombEncodeInfo": {
+            "type": "array",
+            "element": {
+              "type": "object",
+              "properties": {
+                "CompressionMask": {
+                  "type": "string"
+                },
+                "Enable": {
+                  "type": "boolean"
+                },
+                "HaveAudio": {
+                  "type": "boolean"
+                },
+                "ResolutionMask": {
+                  "type": "string"
+                },
+                "StreamType": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "Compression": {
+            "type": "string"
+          },
+          "EncodeInfo": {
+            "type": "array",
+            "element": {
+              "type": "object",
+              "properties": {
+                "CompressionMask": {
+                  "type": "string"
+                },
+                "Enable": {
+                  "type": "boolean"
+                },
+                "HaveAudio": {
+                  "type": "boolean"
+                },
+                "ResolutionMask": {
+                  "type": "string"
+                },
+                "StreamType": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "ExImageSizePerChannel": {
+            "type": "array",
+            "element": {
+              "type": "string"
+            }
+          },
+          "ExImageSizePerChannelEx": {
+            "type": "array",
+            "element": {
+              "type": "array",
+              "element": {
+                "type": "string"
+              }
+            }
+          },
+          "FourthStreamImageSize": {
+            "type": "array",
+            "element": {
+              "type": "string"
+            }
+          },
+          "ImageSizePerChannel": {
+            "type": "array",
+            "element": {
+              "type": "string"
+            }
+          },
+          "MaxBitrate": {
+            "type": "number"
+          },
+          "MaxEncodePower": {
+            "type": "number"
+          },
+          "MaxEncodePowerPerChannel": {
+            "type": "array",
+            "element": {
+              "type": "string"
+            }
+          },
+          "ThirdStreamImageSize": {
+            "type": "array",
+            "element": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "MotionArea": {
+        "type": "object",
+        "properties": {
+          "GridColumn": {
+            "type": "number"
+          },
+          "GridRow": {
+            "type": "number"
+          }
+        }
+      },
+      "MultiLanguage": {
+        "type": "array",
+        "element": {
+          "type": "string"
+        }
+      },
+      "MultiVstd": {
+        "type": "string"
+      },
+      "QuestionDelivery": {
+        "type": "array",
+        "element": {
+          "type": "string"
+        }
+      },
+      "SupportExtRecord": {
+        "type": "object",
+        "properties": {
+          "AbilityPram": {
+            "type": "string"
+          }
+        }
+      },
       "SystemFunction": {
         "type": "object",
         "properties": {
@@ -3466,53 +4000,26 @@ module.exports = Object.freeze({
             }
           }
         }
-      },
-      "DimenCode": {
+      }
+    }
+  },
+  "CHANNEL_ABILITY_GET": {
+    "id": 1360,
+    "type": "object",
+    "properties": {
+      "Name": {
+        "type": "string"
+      }
+    }
+  },
+  "CHANNEL_ABILITY_GET_RSP": {
+    "id": 1361,
+    "commands": {
+      "BlindCapability": {
         "type": "object",
         "properties": {
-          "SN": {
-            "type": "object",
-            "properties": {
-              "code": {
-                "type": "string"
-              },
-              "size": {
-                "type": "number"
-              }
-            }
-          },
-          "appAndroid": {
-            "type": "object",
-            "properties": {
-              "code": {
-                "type": "string"
-              },
-              "size": {
-                "type": "number"
-              }
-            }
-          },
-          "appIOS": {
-            "type": "object",
-            "properties": {
-              "code": {
-                "type": "string"
-              },
-              "size": {
-                "type": "number"
-              }
-            }
-          },
-          "otherInfo": {
-            "type": "object",
-            "properties": {
-              "code": {
-                "type": "string"
-              },
-              "size": {
-                "type": "number"
-              }
-            }
+          "BlindCoverNum": {
+            "type": "number"
           }
         }
       },
@@ -3551,14 +4058,6 @@ module.exports = Object.freeze({
           }
         }
       },
-      "SupportExtRecord": {
-        "type": "object",
-        "properties": {
-          "AbilityPram": {
-            "type": "string"
-          }
-        }
-      },
       "MotionArea": {
         "type": "object",
         "properties": {
@@ -3566,14 +4065,6 @@ module.exports = Object.freeze({
             "type": "number"
           },
           "GridRow": {
-            "type": "number"
-          }
-        }
-      },
-      "BlindCapability": {
-        "type": "object",
-        "properties": {
-          "BlindCoverNum": {
             "type": "number"
           }
         }
@@ -3587,152 +4078,653 @@ module.exports = Object.freeze({
       "MultiVstd": {
         "type": "string"
       },
-      "EncodeCapability": {
+      "SupportExtRecord": {
         "type": "object",
         "properties": {
-          "ChannelMaxSetSync": {
-            "type": "number"
-          },
-          "CombEncodeInfo": {
-            "type": "array",
-            "element": {
-              "type": "object",
-              "properties": {
-                "CompressionMask": {
-                  "type": "string"
-                },
-                "Enable": {
-                  "type": "boolean"
-                },
-                "HaveAudio": {
-                  "type": "boolean"
-                },
-                "ResolutionMask": {
-                  "type": "string"
-                },
-                "StreamType": {
-                  "type": "string"
-                }
-              }
-            }
-          },
-          "Compression": {
-            "type": "string"
-          },
-          "EncodeInfo": {
-            "type": "array",
-            "element": {
-              "type": "object",
-              "properties": {
-                "CompressionMask": {
-                  "type": "string"
-                },
-                "Enable": {
-                  "type": "boolean"
-                },
-                "HaveAudio": {
-                  "type": "boolean"
-                },
-                "ResolutionMask": {
-                  "type": "string"
-                },
-                "StreamType": {
-                  "type": "string"
-                }
-              }
-            }
-          },
-          "ExImageSizePerChannel": {
-            "type": "array",
-            "element": {
-              "type": "string"
-            }
-          },
-          "ExImageSizePerChannelEx": {
-            "type": "array",
-            "element": {
-              "type": "array",
-              "element": {
-                "type": "string"
-              }
-            }
-          },
-          "FourthStreamImageSize": {
-            "type": "array",
-            "element": {
-              "type": "string"
-            }
-          },
-          "ImageSizePerChannel": {
-            "type": "array",
-            "element": {
-              "type": "string"
-            }
-          },
-          "MaxBitrate": {
-            "type": "number"
-          },
-          "MaxEncodePower": {
-            "type": "number"
-          },
-          "MaxEncodePowerPerChannel": {
-            "type": "array",
-            "element": {
-              "type": "string"
-            }
-          },
-          "ThirdStreamImageSize": {
-            "type": "array",
-            "element": {
-              "type": "string"
-            }
-          }
-        }
-      },
-      "Encode264ability": {
-        "type": "object",
-        "properties": {
-          "uIntel264": {
-            "type": "array",
-            "element": {
-              "type": "string"
-            }
-          },
-          "uIntel264Plus": {
-            "type": "array",
-            "element": {
-              "type": "string"
-            }
-          }
-        }
-      },
-      "AHDEncodeL": {
-        "type": "object",
-        "properties": {
-          "AHDLMask": {
+          "AbilityPram": {
             "type": "string"
           }
         }
       },
-      "DDNSService": {
-        "type": "array",
-        "element": {
-          "type": "string"
-        }
-      },
-      "QuestionDelivery": {
-        "type": "array",
-        "element": {
-          "type": "string"
+      "SystemFunction": {
+        "type": "object",
+        "properties": {
+          "AlarmFunction": {
+            "type": "object",
+            "properties": {
+              "433Alarm": {
+                "type": "boolean"
+              },
+              "AlarmConfig": {
+                "type": "boolean"
+              },
+              "BlindDetect": {
+                "type": "boolean"
+              },
+              "BlurCheck": {
+                "type": "boolean"
+              },
+              "Consumer433Alarm": {
+                "type": "boolean"
+              },
+              "ConsumerRemote": {
+                "type": "boolean"
+              },
+              "HumanDection": {
+                "type": "boolean"
+              },
+              "IPCAlarm": {
+                "type": "boolean"
+              },
+              "LossDetect": {
+                "type": "boolean"
+              },
+              "MotionDetect": {
+                "type": "boolean"
+              },
+              "NetAbort": {
+                "type": "boolean"
+              },
+              "NetAbortExtend": {
+                "type": "boolean"
+              },
+              "NetAlarm": {
+                "type": "boolean"
+              },
+              "NetIpConflict": {
+                "type": "boolean"
+              },
+              "NewVideoAnalyze": {
+                "type": "boolean"
+              },
+              "PIRAlarm": {
+                "type": "boolean"
+              },
+              "SensorAlarmCenter": {
+                "type": "boolean"
+              },
+              "SerialAlarm": {
+                "type": "boolean"
+              },
+              "StorageFailure": {
+                "type": "boolean"
+              },
+              "StorageLowSpace": {
+                "type": "boolean"
+              },
+              "StorageNotExist": {
+                "type": "boolean"
+              },
+              "VideoAnalyze": {
+                "type": "boolean"
+              }
+            }
+          },
+          "CommFunction": {
+            "type": "object",
+            "properties": {
+              "CommRS232": {
+                "type": "boolean"
+              },
+              "CommRS485": {
+                "type": "boolean"
+              }
+            }
+          },
+          "EncodeFunction": {
+            "type": "object",
+            "properties": {
+              "CombineStream": {
+                "type": "boolean"
+              },
+              "DoubleStream": {
+                "type": "boolean"
+              },
+              "IFrameRange": {
+                "type": "boolean"
+              },
+              "IntelligentEncode": {
+                "type": "boolean"
+              },
+              "LowBitRate": {
+                "type": "boolean"
+              },
+              "SmartH264": {
+                "type": "boolean"
+              },
+              "SmartH264V2": {
+                "type": "boolean"
+              },
+              "SnapStream": {
+                "type": "boolean"
+              },
+              "WaterMark": {
+                "type": "boolean"
+              }
+            }
+          },
+          "InputMethod": {
+            "type": "object",
+            "properties": {
+              "NoSupportChinese": {
+                "type": "boolean"
+              }
+            }
+          },
+          "MobileDVR": {
+            "type": "object",
+            "properties": {
+              "CarPlateSet": {
+                "type": "boolean"
+              },
+              "DVRBootType": {
+                "type": "boolean"
+              },
+              "DelaySet": {
+                "type": "boolean"
+              },
+              "GpsTiming": {
+                "type": "boolean"
+              },
+              "StatusExchange": {
+                "type": "boolean"
+              }
+            }
+          },
+          "NetServerFunction": {
+            "type": "object",
+            "properties": {
+              "IPAdaptive": {
+                "type": "boolean"
+              },
+              "MACProtocol": {
+                "type": "boolean"
+              },
+              "MonitorPlatform": {
+                "type": "boolean"
+              },
+              "NATProtocol": {
+                "type": "boolean"
+              },
+              "Net3G": {
+                "type": "boolean"
+              },
+              "Net4G": {
+                "type": "boolean"
+              },
+              "NetARSP": {
+                "type": "boolean"
+              },
+              "NetAlarmCenter": {
+                "type": "boolean"
+              },
+              "NetAnJuP2P": {
+                "type": "boolean"
+              },
+              "NetBaiduCloud": {
+                "type": "boolean"
+              },
+              "NetBjlThy": {
+                "type": "boolean"
+              },
+              "NetDAS": {
+                "type": "boolean"
+              },
+              "NetDDNS": {
+                "type": "boolean"
+              },
+              "NetDHCP": {
+                "type": "boolean"
+              },
+              "NetDNS": {
+                "type": "boolean"
+              },
+              "NetDataLink": {
+                "type": "boolean"
+              },
+              "NetEmail": {
+                "type": "boolean"
+              },
+              "NetFTP": {
+                "type": "boolean"
+              },
+              "NetGlobalEyes": {
+                "type": "boolean"
+              },
+              "NetGodEyeAlarm": {
+                "type": "boolean"
+              },
+              "NetHMS": {
+                "type": "boolean"
+              },
+              "NetIPFilter": {
+                "type": "boolean"
+              },
+              "NetIPv6": {
+                "type": "boolean"
+              },
+              "NetKaiCong": {
+                "type": "boolean"
+              },
+              "NetKeyboard": {
+                "type": "boolean"
+              },
+              "NetLocalSdkPlatform": {
+                "type": "boolean"
+              },
+              "NetMidDAS": {
+                "type": "boolean"
+              },
+              "NetMobile": {
+                "type": "boolean"
+              },
+              "NetMobileWatch": {
+                "type": "boolean"
+              },
+              "NetMutliCast": {
+                "type": "boolean"
+              },
+              "NetNTP": {
+                "type": "boolean"
+              },
+              "NetNat": {
+                "type": "boolean"
+              },
+              "NetOpenVPN": {
+                "type": "boolean"
+              },
+              "NetPMS": {
+                "type": "boolean"
+              },
+              "NetPMSV2": {
+                "type": "boolean"
+              },
+              "NetPPPoE": {
+                "type": "boolean"
+              },
+              "NetPhoneMultimediaMsg": {
+                "type": "boolean"
+              },
+              "NetPhoneShortMsg": {
+                "type": "boolean"
+              },
+              "NetPlatMega": {
+                "type": "boolean"
+              },
+              "NetPlatShiSou": {
+                "type": "boolean"
+              },
+              "NetPlatVVEye": {
+                "type": "boolean"
+              },
+              "NetPlatXingWang": {
+                "type": "boolean"
+              },
+              "NetRTSP": {
+                "type": "boolean"
+              },
+              "NetSPVMN": {
+                "type": "boolean"
+              },
+              "NetSPVMNSIP": {
+                "type": "boolean"
+              },
+              "NetTUTKIOTC": {
+                "type": "boolean"
+              },
+              "NetUPNP": {
+                "type": "boolean"
+              },
+              "NetVPN": {
+                "type": "boolean"
+              },
+              "NetWifi": {
+                "type": "boolean"
+              },
+              "NetWifiMode": {
+                "type": "boolean"
+              },
+              "OnvifPwdCheckout": {
+                "type": "boolean"
+              },
+              "PlatFormGBeyes": {
+                "type": "boolean"
+              },
+              "RTMP": {
+                "type": "boolean"
+              },
+              "WifiModeSwitch": {
+                "type": "boolean"
+              },
+              "XMHeartBeat": {
+                "type": "boolean"
+              }
+            }
+          },
+          "OtherFunction": {
+            "type": "object",
+            "properties": {
+              "AlterDigitalName": {
+                "type": "boolean"
+              },
+              "DownLoadPause": {
+                "type": "boolean"
+              },
+              "HddLowSpaceUseMB": {
+                "type": "boolean"
+              },
+              "HideDigital": {
+                "type": "boolean"
+              },
+              "MusicFilePlay": {
+                "type": "boolean"
+              },
+              "NOHDDRECORD": {
+                "type": "boolean"
+              },
+              "NotSupportAH": {
+                "type": "boolean"
+              },
+              "NotSupportAV": {
+                "type": "boolean"
+              },
+              "NotSupportTalk": {
+                "type": "boolean"
+              },
+              "SDsupportRecord": {
+                "type": "boolean"
+              },
+              "ShowAlarmLevelRegion": {
+                "type": "boolean"
+              },
+              "ShowFalseCheckTime": {
+                "type": "boolean"
+              },
+              "SupportAbnormitySendMail": {
+                "type": "boolean"
+              },
+              "SupportAlarmLinkLight": {
+                "type": "boolean"
+              },
+              "SupportAlarmVoiceTips": {
+                "type": "boolean"
+              },
+              "SupportAudioFormat": {
+                "type": "boolean"
+              },
+              "SupportBT": {
+                "type": "boolean"
+              },
+              "SupportBallCameraTrackDetect": {
+                "type": "boolean"
+              },
+              "SupportBulbAlarmLightOn": {
+                "type": "boolean"
+              },
+              "SupportC7Platform": {
+                "type": "boolean"
+              },
+              "SupportCamareStyle": {
+                "type": "boolean"
+              },
+              "SupportCameraMotorCtrl": {
+                "type": "boolean"
+              },
+              "SupportCameraWhiteLight": {
+                "type": "boolean"
+              },
+              "SupportCfgCloudupgrade": {
+                "type": "boolean"
+              },
+              "SupportCloseVoiceTip": {
+                "type": "boolean"
+              },
+              "SupportCloudUpgrade": {
+                "type": "boolean"
+              },
+              "SupportCommDataUpload": {
+                "type": "boolean"
+              },
+              "SupportConsSensorAlarmLink": {
+                "type": "boolean"
+              },
+              "SupportContinueUpgrade": {
+                "type": "boolean"
+              },
+              "SupportCorridorMode": {
+                "type": "boolean"
+              },
+              "SupportCustomOemInfo": {
+                "type": "boolean"
+              },
+              "SupportDeviceInfoNew": {
+                "type": "boolean"
+              },
+              "SupportDigitalEncode": {
+                "type": "boolean"
+              },
+              "SupportDigitalPre": {
+                "type": "boolean"
+              },
+              "SupportDimenCode": {
+                "type": "boolean"
+              },
+              "SupportDoorLock": {
+                "type": "boolean"
+              },
+              "SupportDoubleLightBoxCamera": {
+                "type": "boolean"
+              },
+              "SupportDoubleLightBulb": {
+                "type": "boolean"
+              },
+              "SupportEncodeAddBeep": {
+                "type": "boolean"
+              },
+              "SupportFTPTest": {
+                "type": "boolean"
+              },
+              "SupportFaceDetect": {
+                "type": "boolean"
+              },
+              "SupportFeederFunction": {
+                "type": "boolean"
+              },
+              "SupportFishEye": {
+                "type": "boolean"
+              },
+              "SupportImpRecord": {
+                "type": "boolean"
+              },
+              "SupportIntelligentPlayBack": {
+                "type": "boolean"
+              },
+              "SupportLowLuxMode": {
+                "type": "boolean"
+              },
+              "SupportMailTest": {
+                "type": "boolean"
+              },
+              "SupportMaxPlayback": {
+                "type": "boolean"
+              },
+              "SupportModifyFrontcfg": {
+                "type": "boolean"
+              },
+              "SupportMusicLightBulb": {
+                "type": "boolean"
+              },
+              "SupportNVR": {
+                "type": "boolean"
+              },
+              "SupportNetLocalSearch": {
+                "type": "boolean"
+              },
+              "SupportNetWorkMode": {
+                "type": "boolean"
+              },
+              "SupportOSDInfo": {
+                "type": "boolean"
+              },
+              "SupportOneKeyMaskVideo": {
+                "type": "boolean"
+              },
+              "SupportOnvifClient": {
+                "type": "boolean"
+              },
+              "SupportPOS": {
+                "type": "boolean"
+              },
+              "SupportPTZTour": {
+                "type": "boolean"
+              },
+              "SupportPWDSafety": {
+                "type": "boolean"
+              },
+              "SupportPlateDetect": {
+                "type": "boolean"
+              },
+              "SupportPlayBackExactSeek": {
+                "type": "boolean"
+              },
+              "SupportPlaybackLocate": {
+                "type": "boolean"
+              },
+              "SupportPtz360Spin": {
+                "type": "boolean"
+              },
+              "SupportPtzIdleState": {
+                "type": "boolean"
+              },
+              "SupportRPSVideo": {
+                "type": "boolean"
+              },
+              "SupportRTSPClient": {
+                "type": "boolean"
+              },
+              "SupportResumePtzState": {
+                "type": "boolean"
+              },
+              "SupportSPVMNNasServer": {
+                "type": "boolean"
+              },
+              "SupportSafetyEmail": {
+                "type": "boolean"
+              },
+              "SupportSensorAbilitySetting": {
+                "type": "boolean"
+              },
+              "SupportSetDigIP": {
+                "type": "boolean"
+              },
+              "SupportSetHardwareAbility": {
+                "type": "boolean"
+              },
+              "SupportSetPTZPresetAttribute": {
+                "type": "boolean"
+              },
+              "SupportShowConnectStatus": {
+                "type": "boolean"
+              },
+              "SupportShowProductType": {
+                "type": "boolean"
+              },
+              "SupportSlowMotion": {
+                "type": "boolean"
+              },
+              "SupportSmallChnTitleFont": {
+                "type": "boolean"
+              },
+              "SupportSnapCfg": {
+                "type": "boolean"
+              },
+              "SupportSnapSchedule": {
+                "type": "boolean"
+              },
+              "SupportSnapV2Stream": {
+                "type": "boolean"
+              },
+              "SupportSoftPhotosensitive": {
+                "type": "boolean"
+              },
+              "SupportSplitControl": {
+                "type": "boolean"
+              },
+              "SupportStatusLed": {
+                "type": "boolean"
+              },
+              "SupportStorageFailReboot": {
+                "type": "boolean"
+              },
+              "SupportStorageNAS": {
+                "type": "boolean"
+              },
+              "SupportSwitchResolution": {
+                "type": "boolean"
+              },
+              "SupportTextPassword": {
+                "type": "boolean"
+              },
+              "SupportTimeZone": {
+                "type": "boolean"
+              },
+              "SupportTimingSleep": {
+                "type": "boolean"
+              },
+              "SupportUserProgram": {
+                "type": "boolean"
+              },
+              "SupportWIFINVR": {
+                "type": "boolean"
+              },
+              "SupportWriteLog": {
+                "type": "boolean"
+              },
+              "Supportonviftitle": {
+                "type": "boolean"
+              },
+              "SuppportChangeOnvifPort": {
+                "type": "boolean"
+              },
+              "TitleAndStateUpload": {
+                "type": "boolean"
+              },
+              "USBsupportRecord": {
+                "type": "boolean"
+              }
+            }
+          },
+          "PreviewFunction": {
+            "type": "object",
+            "properties": {
+              "GUISet": {
+                "type": "boolean"
+              },
+              "Tour": {
+                "type": "boolean"
+              }
+            }
+          },
+          "TipShow": {
+            "type": "object",
+            "properties": {
+              "NoBeepTipShow": {
+                "type": "boolean"
+              },
+              "NoDiskManagerButtonShow": {
+                "type": "boolean"
+              },
+              "NoEmailTipShow": {
+                "type": "boolean"
+              },
+              "NoFTPTipShow": {
+                "type": "boolean"
+              }
+            }
+          }
         }
       }
     }
-  },
-  "CHANNEL_ABILITY_GET": {
-    "id": 1360
-  },
-  "CHANNEL_ABILITY_GET_RSP": {
-    "id": 1361
   },
   "PTZ_REQ": {
     "id": 1400
@@ -3891,17 +4883,6 @@ module.exports = Object.freeze({
   "SYSMANAGER_REQ": {
     "id": 1450,
     "commands": {
-      "OPTimeSetting": {
-        "type": "string"
-      },
-      "OPMachine": {
-        "type": "object",
-        "properties": {
-          "Action": {
-            "type": "string"
-          }
-        }
-      },
       "OPDefaultConfig": {
         "type": "object",
         "properties": {
@@ -3939,6 +4920,17 @@ module.exports = Object.freeze({
             "type": "boolean"
           }
         }
+      },
+      "OPMachine": {
+        "type": "object",
+        "properties": {
+          "Action": {
+            "type": "string"
+          }
+        }
+      },
+      "OPTimeSetting": {
+        "type": "string"
       }
     }
   },
