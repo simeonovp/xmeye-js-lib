@@ -12,6 +12,10 @@ module.exports = Object.freeze({
     "data": "Config.AVEnc.SmartH264V2.[0]",
     "get": "ConfigGet"
   },
+  "Ability.SerialNo": {
+    "data": "Config.Ability.SerialNo",
+    "get": "ConfigGet"
+  },
   "Alarm.AlarmOut": {
     "data": "Config.Alarm.AlarmOut",
     "get": "ConfigGet",
@@ -22,7 +26,7 @@ module.exports = Object.freeze({
     "get": "ConfigGet"
   },
   "AlarmInfo": {
-    "unknown": "Alarm"
+    "method": "Alarm"
   },
   "AppDowloadLink": {
     "data": "Config.AppDowloadLink",
@@ -46,6 +50,18 @@ module.exports = Object.freeze({
       "ChannelAbility"
     ]
   },
+  "Camera.ClearFog": {
+    "data": "Config.Camera.ClearFog",
+    "get": "ConfigGet"
+  },
+  "Camera.Param.[0]": {
+    "data": "Config.Camera.Param.[0]",
+    "get": "ConfigGet"
+  },
+  "Camera.ParamEx.[0]": {
+    "data": "Config.Camera.ParamEx.[0]",
+    "get": "ConfigGet"
+  },
   "ChannelTitle": {
     "data": "Config.ChannelTitle",
     "get": [
@@ -54,9 +70,16 @@ module.exports = Object.freeze({
     ],
     "set": "ConfigChannelSet"
   },
+  "ComProtocol": {
+    "data": "Ability.ComProtocol",
+    "get": "Ability"
+  },
   "DDNSService": {
     "data": "Ability.DDNSService",
     "get": "Ability"
+  },
+  "DebugCameraSaveCmd": {
+    "set": "Debug"
   },
   "Detect.BlindDetect.[0]": {
     "data": "Config.Detect.BlindDetect.[0]",
@@ -88,7 +111,8 @@ module.exports = Object.freeze({
   },
   "General.AutoMaintain": {
     "data": "Config.General.AutoMaintain",
-    "get": "ConfigGet"
+    "get": "ConfigGet",
+    "set": "ConfigSet"
   },
   "General.General": {
     "data": "Config.General.General",
@@ -112,7 +136,7 @@ module.exports = Object.freeze({
     "get": "Ability"
   },
   "KeepAlive": {
-    "get": "KeepAlive"
+    "command": "KeepAlive"
   },
   "MaxPreRecord": {
     "data": "Ability.MaxPreRecord",
@@ -210,6 +234,11 @@ module.exports = Object.freeze({
     "get": "ConfigGet",
     "set": "ConfigSet"
   },
+  "NetWork.OnlineUpgrade": {
+    "data": "Config.NetWork.OnlineUpgrade",
+    "get": "ConfigGet",
+    "set": "ConfigSet"
+  },
   "NetWork.OnvifPwdCheckout": {
     "data": "Config.NetWork.OnvifPwdCheckout",
     "get": "ConfigGet",
@@ -260,6 +289,10 @@ module.exports = Object.freeze({
     "data": "Config.PMS.num",
     "get": "ConfigGet"
   },
+  "PTZProtocol": {
+    "data": "Ability.PTZProtocol",
+    "get": "Ability"
+  },
   "QuestionDelivery": {
     "data": "Ability.QuestionDelivery",
     "get": "Ability"
@@ -274,6 +307,10 @@ module.exports = Object.freeze({
   },
   "Snap.SnapConfig.[0]": {
     "data": "Config.Snap.SnapConfig.[0]",
+    "get": "ConfigGet"
+  },
+  "Status.NatInfo": {
+    "data": "Config.Status.NatInfo",
     "get": "ConfigGet"
   },
   "Storage.StorageNotExist": {
@@ -316,6 +353,24 @@ module.exports = Object.freeze({
   "SystemInfo": {
     "data": "Info.SystemInfo",
     "get": "SysInfo"
+  },
+  "Uart.Comm": {
+    "data": "Config.Uart.Comm",
+    "get": "ConfigGet",
+    "set": "ConfigSet"
+  },
+  "Uart.PTZ": {
+    "data": "Config.Uart.PTZ",
+    "get": "ConfigGet"
+  },
+  "Uart.RS485": {
+    "data": "Config.Uart.RS485",
+    "get": "ConfigGet",
+    "set": "ConfigSet"
+  },
+  "UartProtocol": {
+    "data": "Ability.UartProtocol",
+    "get": "Ability"
   },
   "User": {
     "command": "AddUser"

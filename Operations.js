@@ -90,7 +90,7 @@ module.exports = Object.freeze({
     }
   },
   "Debug": {
-    "type": "get",
+    "type": "set",
     "input": {
       "message": "SYSTEM_DEBUG_REQ"
     },

@@ -7,7 +7,7 @@ module.exports = {
   FrameParser: require('./FrameParser'),
   FrameAssembler: require('./FrameAssembler'),
   FrameBuilder: require('./FrameBuilder'),
-  XmeyeInterpretter: require('./Interpretter'),
+  Interpretter: require('./Interpretter'),
   Connection: require('./Connection'),
   PcapReader: require('./PcapReader')
 }
