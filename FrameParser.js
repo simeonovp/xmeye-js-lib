@@ -80,9 +80,9 @@ class FrameParser {
     }
     else {
       const json = msg.body.toString('utf8', 0, msg.body[msg.body.length - 1] ? msg.body.length - 1 : msg.body.length - 2)
-      msg.data = data = JSON.parse(json)
-      msg.Ret = parsed.Ret
-      msg.SessionID = parsed.SessionID
+      msg.data = JSON.parse(json)
+      msg.Ret = msg.data.Ret
+      msg.SessionID = msg.data.SessionID
       if (msg.data.Ret && !ResponseCodes.SuccessCodes[msg.data.Ret]) {
         msg.ErrorMessage = ResponseCodes.ErrorCodes[msg.data.Ret] || 'Unknown error'
       }
